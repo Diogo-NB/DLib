@@ -33,7 +33,7 @@ void *pop(Stack S)
     void *data = top->data; // Data to be returned
     S->top = top->prev;     // Setting new top node
     free(top);              // Deallocate the old top node
-    
+
     return data;
 }
 
@@ -49,8 +49,29 @@ void free_stack(Stack S)
 {
     if (!is_stack_empty(S))
     {
-        while (pop(S) != NULL)
-            ;
+        SNode *aux;
+        while (S->top != NULL)
+        {
+            aux = S->top;
+            S->top = S->top->prev;
+            free(aux);
+        }
+    }
+    free(S);
+}
+
+void free_stack_func(Stack S, void (*free_data_func)(void *))
+{
+    if (!is_stack_empty(S))
+    {
+        SNode *aux;
+        while (S->top != NULL)
+        {
+            aux = S->top;
+            S->top = S->top->prev;
+            free_data_func(aux->data);
+            free(aux);
+        }
     }
     free(S);
 }

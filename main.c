@@ -12,12 +12,25 @@ Integer create_integer(int value);
 int main()
 {
     Stack S = create_stack();
+    Integer integers[5];
 
-    push(S, create_integer(5));
-    printf("%d\n", *((Integer)pop(S)));
+    printf("\nVazio: %d\n", is_stack_empty(S));
 
-    push(S, create_integer(9986));
-    printf("%d\n", is_stack_empty(S));
+    for (int i = 0; i < 5; i++)
+    {
+        integers[i] = create_integer(i + 1);
+        printf("%d ", integers[i]->value);
+        push(S, integers[i]);
+    }
+
+    printf("\nVazio: %d\n", is_stack_empty(S));
+
+    free_stack_func(S, free);
+
+    for (int i = 0; i < 5; i++)
+    {
+        printf("%d ", integers[i]->value);
+    }
 
     return 0;
 }
