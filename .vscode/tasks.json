@@ -1,0 +1,26 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "Generic custom task",
+            "command": "D:\\Programs Files\\mysys2_DIR\\mingw64\\bin\\gcc.exe", // compiler path
+            "args": [
+                "-fdiagnostics-color=always",
+                "-I${workspaceFolder}\\list_lib", // Including all headers files (.h) inside list_lib folder
+                "-g",
+                "${workspaceFolder}\\*.c",
+                "${workspaceFolder}\\list_lib\\*.c", // Compiling all .c files inside list_lib folder
+                "-o",
+                "${workspaceFolder}\\${fileBasenameNoExtension}.exe"
+            ],            
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        }
+    ],
+    "version": "2.0.0"
+}
