@@ -16,11 +16,11 @@ int push(Stack S, void *data)
     if (data == NULL)
         return 0;
 
-    SNode *node = (SNode *)malloc(sizeof(SNode));
-    node->data = data;
-    node->prev = S->top;
+    SNode new_node = (SNode)malloc(sizeof(struct sNode));
+    new_node->data = data;
+    new_node->prev = S->top;
 
-    S->top = node;
+    S->top = new_node;
     return 1;
 }
 
@@ -29,7 +29,7 @@ void *pop(Stack S)
     if (is_stack_empty(S))
         return NULL;
 
-    SNode *top = S->top;    // Current top node
+    SNode top = S->top;     // Current top node
     void *data = top->data; // Data to be returned
     S->top = top->prev;     // Setting new top node
     free(top);              // Deallocate the old top node
@@ -49,7 +49,7 @@ void free_stack(Stack S)
 {
     if (!is_stack_empty(S))
     {
-        SNode *aux;
+        SNode aux;
         while (S->top != NULL)
         {
             aux = S->top;
@@ -64,7 +64,7 @@ void free_stack_func(Stack S, void (*free_data_func)(void *))
 {
     if (!is_stack_empty(S))
     {
-        SNode *aux;
+        SNode aux;
         while (S->top != NULL)
         {
             aux = S->top;
@@ -83,7 +83,7 @@ int stack_size(Stack S)
     if (!is_empty) // If stack's not empty
     {
         int count = 0;
-        SNode *aux = S->top;
+        SNode aux = S->top;
         while (aux != NULL)
         {
             count++;

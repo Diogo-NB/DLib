@@ -11,7 +11,7 @@ struct sNode
     struct sNode *prev; // Previous node
 };
 
-typedef struct sNode SNode;
+typedef struct sNode* SNode;
 
 struct stack
 {
