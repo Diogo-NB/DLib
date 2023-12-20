@@ -75,3 +75,24 @@ void free_stack_func(Stack S, void (*free_data_func)(void *))
     }
     free(S);
 }
+
+int stack_size(Stack S)
+{
+    int is_empty = is_stack_empty(S);
+
+    if (!is_empty) // If stack's not empty
+    {
+        int count = 0;
+        SNode *aux = S->top;
+        while (aux != NULL)
+        {
+            count++;
+            aux = aux->prev;
+        }
+        return count;
+    }
+    else
+    {
+        return is_empty;
+    }
+}

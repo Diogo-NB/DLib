@@ -1,6 +1,7 @@
 #include "stack.h"
 
-struct integer // Int wrapper
+// int wrapper (for tests only)
+struct integer
 {
     int value;
 };
@@ -23,15 +24,10 @@ int main()
         push(S, integers[i]);
     }
 
-    printf("\nVazio: %d\n", is_stack_empty(S));
+    printf("\nVazio: %d", is_stack_empty(S));
+    printf("\nSize: %d\n", stack_size(S));
 
     free_stack_func(S, free);
-
-    for (int i = 0; i < 5; i++)
-    {
-        printf("%d ", integers[i]->value);
-    }
-
     return 0;
 }
 
