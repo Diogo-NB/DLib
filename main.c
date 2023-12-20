@@ -1,6 +1,6 @@
 #include "stack.h"
 
-// int wrapper (for tests only)
+// int wrapper for testing purpose
 struct integer
 {
     int value;
@@ -26,6 +26,8 @@ int main()
 
     printf("\nVazio: %d", is_stack_empty(S));
     printf("\nSize: %d\n", stack_size(S));
+
+    for (; !is_stack_empty(S); printf("%d ", *(Integer)pop(S)));
 
     free_stack_func(S, free);
     return 0;
