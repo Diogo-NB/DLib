@@ -11,10 +11,10 @@ Integer create_integer(int value);
 
 int main()
 {
-    Stack *S = create_stack();
-    
+    Stack S = create_stack();
+
     push(S, create_integer(5));
-    printf("%d\n", *((Integer) pop(S)));
+    printf("%d\n", *((Integer)pop(S)));
 
     push(S, create_integer(9986));
     printf("%d\n", is_stack_empty(S));
@@ -22,8 +22,9 @@ int main()
     return 0;
 }
 
-Integer create_integer(int value){
-    Integer I = (Integer) malloc(sizeof(struct integer));
+Integer create_integer(int value)
+{
+    Integer I = (Integer)malloc(sizeof(struct integer));
     I->value = value;
     return I;
 }

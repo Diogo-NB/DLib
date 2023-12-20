@@ -1,13 +1,14 @@
 #include "stack.h"
 
-Stack *create_stack()
+Stack create_stack()
 {
-    Stack *S = (Stack *)malloc(sizeof(Stack));
+    Stack S = (Stack)malloc(sizeof(struct stack));
     S->top = NULL;
+
     return S;
 }
 
-int push(Stack *S, void *data)
+int push(Stack S, void *data)
 {
     if (S == NULL)
         return -1;
@@ -18,11 +19,12 @@ int push(Stack *S, void *data)
     SNode *node = (SNode *)malloc(sizeof(SNode));
     node->data = data;
     node->prev = S->top;
+
     S->top = node;
     return 1;
 }
 
-void *pop(Stack *S)
+void *pop(Stack S)
 {
     if (is_stack_empty(S))
         return NULL;
@@ -31,10 +33,11 @@ void *pop(Stack *S)
     void *data = top->data; // Data to be returned
     S->top = top->prev;     // Setting new top node
     free(top);              // Deallocate the old top node
+    
     return data;
 }
 
-int is_stack_empty(Stack *S)
+int is_stack_empty(Stack S)
 {
     if (S == NULL)
         return -1;
@@ -42,11 +45,12 @@ int is_stack_empty(Stack *S)
     return S->top == NULL;
 }
 
-void free_stack(Stack *S)
+void free_stack(Stack S)
 {
     if (!is_stack_empty(S))
     {
-        while (pop(S) != NULL);
+        while (pop(S) != NULL)
+            ;
     }
     free(S);
 }

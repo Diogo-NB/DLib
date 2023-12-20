@@ -17,16 +17,16 @@ struct stack
     struct sNode *top;
 };
 
-typedef struct stack Stack;
+typedef struct stack* Stack;
 
-Stack *create_stack();
+Stack create_stack();
 
-int push(Stack *S, void *data);
+int push(Stack S, void *data);
 
-void* pop(Stack *S);
+void* pop(Stack S);
 
-int is_stack_empty(Stack *S);
+int is_stack_empty(Stack S);
 
-void free_stack(Stack *S);
+void free_stack(Stack S);
 
 #endif
