@@ -30,6 +30,27 @@ Node append(List L, void *data)
     return new_node;
 }
 
+// Inserts a new element at the start of the list and returns it's node
+Node prepend(List L, void *data)
+{
+    if (L == NULL)
+        return NULL;
+
+    Node new_node = _create_node(data);
+
+    if (is_list_empty(L)) // Is first node
+    {
+        L->end = L->start = new_node;
+    }
+    else // Inserting at the start
+    {
+        new_node->next = L->start;
+        L->start->prev = new_node;
+        L->start = new_node;
+    }
+    return new_node;
+}
+
 // Creates a new next node
 Node _create_node(void *new_node_data)
 {

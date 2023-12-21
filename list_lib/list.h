@@ -29,6 +29,9 @@ List create_list();
 // Inserts a new element at the end of the list and returns it's node
 Node append(List L, void *data);
 
+// Inserts a new element at the start of the list and returns it's node
+Node prepend(List L, void *data);
+
 // Creates a new node
 Node _create_node(void *new_node_data);
 
