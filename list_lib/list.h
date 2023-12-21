@@ -35,10 +35,14 @@ Node prepend(List L, void *data);
 // Creates a new node
 Node _create_node(void *new_node_data);
 
-// Calls a function (func) for each list's element
+// Calls a function (func) for each list's element, from start to end
 void for_each_element(List L, void (*func)(void *));
 
+// Calls a function (func) for each list's element, from end to start 
 void for_each_element_reversed(List L, void (*func)(void *));
+
+// Returns a new list containing the same elements
+List clone_list(List L);
 
 // Swaps data between two nodes
 int swap(Node n1, Node n2);

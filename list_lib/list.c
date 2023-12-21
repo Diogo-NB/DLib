@@ -30,6 +30,27 @@ Node append(List L, void *data)
     return new_node;
 }
 
+// Inserts a new element at the start of the list and returns it's node
+Node prepend(List L, void *data)
+{
+    if (L == NULL)
+        return NULL;
+
+    Node new_node = _create_node(data);
+
+    if (is_list_empty(L)) // Is first node
+    {
+        L->end = L->start = new_node;
+    }
+    else // Inserting at the start
+    {
+        new_node->next = L->start;
+        L->start->prev = new_node;
+        L->start = new_node;
+    }
+    return new_node;
+}
+
 // Calls a function (func) for each list's element, from start to end
 void for_each_element(List L, void (*func)(void *))
 {
@@ -58,25 +79,21 @@ void for_each_element_reversed(List L, void (*func)(void *))
     }
 }
 
-// Inserts a new element at the start of the list and returns it's node
-Node prepend(List L, void *data)
+// Returns a new list containing the same elements
+List clone_list(List L)
 {
     if (L == NULL)
         return NULL;
 
-    Node new_node = _create_node(data);
+    List new_list = create_list();
 
-    if (is_list_empty(L)) // Is first node
+    Node aux = L->start;
+    while (aux != NULL)
     {
-        L->end = L->start = new_node;
+        append(new_list, aux->data);
+        aux = aux->next;
     }
-    else // Inserting at the start
-    {
-        new_node->next = L->start;
-        L->start->prev = new_node;
-        L->start = new_node;
-    }
-    return new_node;
+    return new_list;
 }
 
 // Creates a new next node

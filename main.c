@@ -33,8 +33,7 @@ void list_example()
     for (int i = 0; i < 5; i++)
     {
         integers[i] = create_integer(i + 1);
-        printf("%d ", integers[i]->value);
-        append(L, integers[i]);
+        prepend(L, integers[i]);
     }
 
     printf("\nEmpty: %d", is_list_empty(L));
