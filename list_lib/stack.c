@@ -47,52 +47,46 @@ int is_stack_empty(Stack S)
 
 void free_stack(Stack S)
 {
-    if (!is_stack_empty(S))
+    if (S == NULL)
+        return;
+
+    SNode aux = S->top;
+    while (aux != NULL)
     {
-        SNode aux;
-        while (S->top != NULL)
-        {
-            aux = S->top;
-            S->top = S->top->prev;
-            free(aux);
-        }
+        S->top = aux->prev;
+        free(aux);
+        aux = S->top;
     }
     free(S);
 }
 
 void free_stack_func(Stack S, void (*free_data_func)(void *))
 {
-    if (!is_stack_empty(S))
+    if (S == NULL)
+        return;
+
+    SNode aux = S->top;
+    while (aux != NULL)
     {
-        SNode aux;
-        while (S->top != NULL)
-        {
-            aux = S->top;
-            S->top = S->top->prev;
-            free_data_func(aux->data);
-            free(aux);
-        }
+        S->top = aux->prev;
+        free_data_func(aux->data);
+        free(aux);
+        aux = S->top;
     }
     free(S);
 }
 
 int stack_size(Stack S)
 {
-    int is_empty = is_stack_empty(S);
+    if (S == NULL)
+        return -1;
 
-    if (!is_empty) // If stack's not empty
+    SNode aux = S->top;
+    int count = 0;
+    while (aux != NULL)
     {
-        int count = 0;
-        SNode aux = S->top;
-        while (aux != NULL)
-        {
-            count++;
-            aux = aux->prev;
-        }
-        return count;
+        count++;
+        aux = aux->prev;
     }
-    else
-    {
-        return is_empty;
-    }
+    return count;
 }
