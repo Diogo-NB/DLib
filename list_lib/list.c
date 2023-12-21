@@ -96,6 +96,23 @@ List clone_list(List L)
     return new_list;
 }
 
+// Returns a new list containing the same elements in reverse order
+List clone_list_reversed(List L)
+{
+    if (L == NULL)
+        return NULL;
+
+    List new_list = create_list();
+
+    Node aux = L->end;
+    while (aux != NULL)
+    {
+        append(new_list, aux->data);
+        aux = aux->prev;
+    }
+    return new_list;
+}
+
 // Creates a new next node
 Node _create_node(void *new_node_data)
 {

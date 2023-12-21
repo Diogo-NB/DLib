@@ -44,6 +44,9 @@ void for_each_element_reversed(List L, void (*func)(void *));
 // Returns a new list containing the same elements
 List clone_list(List L);
 
+// Returns a new list containing the same elements in reversed order 
+List clone_list_reversed(List L);
+
 // Swaps data between two nodes
 int swap(Node n1, Node n2);
 

@@ -33,7 +33,7 @@ void list_example()
     for (int i = 0; i < 5; i++)
     {
         integers[i] = create_integer(i + 1);
-        prepend(L, integers[i]);
+        append(L, integers[i]);
     }
 
     printf("\nEmpty: %d", is_list_empty(L));
@@ -45,6 +45,10 @@ void list_example()
 
     printf("[");
     for_each_element_reversed(L, integer_print);
+    printf(" ]\n");
+
+    printf("[");
+    for_each_element(clone_list_reversed(L), integer_print);
     printf(" ]");
 
     free_list_func(L, free);
