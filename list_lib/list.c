@@ -30,6 +30,34 @@ Node append(List L, void *data)
     return new_node;
 }
 
+// Calls a function (func) for each list's element, from start to end
+void for_each_element(List L, void (*func)(void *))
+{
+    if (L == NULL || func == NULL)
+        return;
+
+    Node aux = L->start;
+    while (aux != NULL)
+    {
+        func(aux->data);
+        aux = aux->next;
+    }
+}
+
+// Calls a function (func) for each list's element, from end to start
+void for_each_element_reversed(List L, void (*func)(void *))
+{
+    if (L == NULL || func == NULL)
+        return;
+
+    Node aux = L->end;
+    while (aux != NULL)
+    {
+        func(aux->data);
+        aux = aux->prev;
+    }
+}
+
 // Inserts a new element at the start of the list and returns it's node
 Node prepend(List L, void *data)
 {

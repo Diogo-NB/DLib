@@ -11,6 +11,8 @@ typedef struct integer *Integer;
 
 Integer create_integer(int value);
 
+void integer_print(void *data);
+
 void stack_example();
 
 void list_example();
@@ -18,6 +20,7 @@ void list_example();
 int main(void)
 {
     list_example();
+    return 0;
 }
 
 void list_example()
@@ -36,6 +39,14 @@ void list_example()
 
     printf("\nEmpty: %d", is_list_empty(L));
     printf("\nLength: %d\n", list_length(L));
+
+    printf("[");
+    for_each_element(L, integer_print);
+    printf(" ]\n");
+
+    printf("[");
+    for_each_element_reversed(L, integer_print);
+    printf(" ]");
 
     free_list_func(L, free);
 }
@@ -69,4 +80,9 @@ Integer create_integer(int value)
     Integer I = (Integer)malloc(sizeof(struct integer));
     I->value = value;
     return I;
+}
+
+void integer_print(void *data)
+{
+    printf(" %d", *(Integer)data);
 }
