@@ -30,6 +30,44 @@ Node append(List L, void *data)
     return new_node;
 }
 
+// Appends an existing node
+Node append_from_node(List L, Node N, void *data)
+{
+    if (N == NULL || is_list_empty(L) != 0)
+        return NULL;
+
+    if (N == L->end)
+        return append(L, data);
+
+    Node new_node = _create_node(data);
+
+    new_node->next = N->next;
+    new_node->prev = N;
+    N->next->prev = new_node;
+    N->next = new_node;
+
+    return new_node;
+}
+
+// Prepends an existing node
+Node prepend_from_node(List L, Node N, void *data)
+{
+    if (N == NULL || is_list_empty(L) != 0)
+        return NULL;
+
+    if (N == L->start)
+        return prepend(L, data);
+
+    Node new_node = _create_node(data);
+
+    new_node->next = N;
+    new_node->prev = N->prev;
+    N->prev->next = new_node;
+    N->prev = new_node;
+
+    return new_node;
+}
+
 // Inserts a new element at the start of the list and returns it's node
 Node prepend(List L, void *data)
 {

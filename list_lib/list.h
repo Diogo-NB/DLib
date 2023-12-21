@@ -29,6 +29,12 @@ List create_list();
 // Inserts a new element at the end of the list and returns it's node
 Node append(List L, void *data);
 
+// Appends an existing node where func(node's data) returns true (1)
+Node append_from_node(List L, Node N, void *data);
+
+// Prepends an existing node
+Node prepend_from_node(List L, Node N, void *data);
+
 // Inserts a new element at the start of the list and returns it's node
 Node prepend(List L, void *data);
 

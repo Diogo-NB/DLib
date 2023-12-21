@@ -19,6 +19,8 @@ void list_example();
 
 int find_3(void *data);
 
+int find_2(void *data);
+
 int main(void)
 {
     list_example();
@@ -28,6 +30,11 @@ int main(void)
 int find_3(void *data)
 {
     return ((Integer)data)->value == 3;
+}
+
+int find_2(void *data)
+{
+    return ((Integer)data)->value == 2;
 }
 
 void list_example()
@@ -51,6 +58,11 @@ void list_example()
     printf(" ]\n");
 
     remove_node(L, find_node(L, find_3)); // Removes the node that contains 3
+
+    Node node_4 = find_node(L, find_2)->next;
+    printf("Teste: %d\n", *(Integer)node_4->data);
+
+    prepend_from_node(L, node_4, create_integer(3));
 
     printf("[");
     for_each_element_reversed(L, integer_print);
