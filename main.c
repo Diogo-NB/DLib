@@ -17,10 +17,17 @@ void stack_example();
 
 void list_example();
 
+int find_3(void *data);
+
 int main(void)
 {
     list_example();
     return 0;
+}
+
+int find_3(void *data)
+{
+    return ((Integer)data)->value == 3;
 }
 
 void list_example()
@@ -43,13 +50,11 @@ void list_example()
     for_each_element(L, integer_print);
     printf(" ]\n");
 
+    remove_node(L, find_node(L, find_3)); // Removes the node that contains 3
+
     printf("[");
     for_each_element_reversed(L, integer_print);
     printf(" ]\n");
-
-    printf("[");
-    for_each_element(clone_list_reversed(L), integer_print);
-    printf(" ]");
 
     free_list_func(L, free);
 }

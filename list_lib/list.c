@@ -123,6 +123,49 @@ Node _create_node(void *new_node_data)
     return new_node;
 }
 
+// Removes a node from a list
+void remove_node(List L, Node x)
+{
+    if (!(L == NULL || L->start == NULL || x == NULL))
+    {
+        if (x == L->end && x == L->start)
+        {
+            L->end = NULL;
+            L->start = NULL;
+        }
+        else if (x == L->end)
+        {
+            L->end = x->prev;
+            x->prev->next = NULL;
+        }
+        else if (x == L->start)
+        {
+            L->start = x->next;
+            x->next->prev = NULL;
+        }
+        else
+        {
+            x->prev->next = x->next;
+            x->next->prev = x->prev;
+        }
+        free(x);
+    }
+}
+
+// Finds a node where func returns true (1)
+Node find_node(List L, int (*func)(void *))
+{
+    if (is_list_empty(L) != 0 || func == NULL)
+        return NULL;
+
+    Node aux;
+    for (aux = L->start; aux != NULL && !func(aux->data); aux = aux->next)
+    {
+    }
+
+    return aux;
+}
+
 // Swaps data between two nodes
 int swap(Node n1, Node n2)
 {
