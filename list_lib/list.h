@@ -29,7 +29,7 @@ List create_list();
 // Inserts a new element at the end of the list and returns it's node
 Node append(List L, void *data);
 
-// Appends an existing node where func(node's data) returns true (1)
+// Appends an existing node
 Node append_from_node(List L, Node N, void *data);
 
 // Prepends an existing node
@@ -52,6 +52,9 @@ void for_each_element(List L, void (*func)(void *));
 
 // Calls a function (func) for each list's element, from end to start
 void for_each_element_reversed(List L, void (*func)(void *));
+
+// Sort using user's compare function (returns >0 when the data should be swapped)
+void sort_list(List L, int (*compare)(void *, void*));
 
 // Returns a new list containing the same elements
 List clone_list(List L);

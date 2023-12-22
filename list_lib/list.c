@@ -117,6 +117,30 @@ void for_each_element_reversed(List L, void (*func)(void *))
     }
 }
 
+// Sort using user's compare function
+void sort_list(List L, int (*compare)(void *, void *))
+{
+    if (L == NULL || compare == NULL || (L->start == L->end))
+        return;
+
+    int flag = 1;
+    Node aux;
+    for (Node end_node = L->end; flag && end_node != L->start; end_node = end_node->prev)
+    {
+        flag = 0;
+        aux = L->start;
+        while (aux != end_node)
+        {
+            if (compare(aux->data, aux->next->data) > 0)
+            {
+                flag = 1;
+                swap(aux, aux->next);
+            }
+            aux = aux->next;
+        }
+    }
+}
+
 // Returns a new list containing the same elements
 List clone_list(List L)
 {
@@ -198,7 +222,7 @@ Node find_node(List L, int (*func)(void *))
 
     Node aux;
     for (aux = L->start; aux != NULL && !func(aux->data); aux = aux->next)
-    {
+    { /*--*/
     }
 
     return aux;

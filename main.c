@@ -1,5 +1,6 @@
 #include "stack.h"
 #include "list.h"
+#include <stdbool.h>
 
 // int wrapper for testing purpose
 struct integer
@@ -21,9 +22,13 @@ int find_3(void *data);
 
 int find_2(void *data);
 
+void list_sort_example();
+
+int compare_integer(void *i1, void *i2);
+
 int main(void)
-{
-    list_example();
+{ 
+    list_sort_example();
     return 0;
 }
 
@@ -35,6 +40,31 @@ int find_3(void *data)
 int find_2(void *data)
 {
     return ((Integer)data)->value == 2;
+}
+
+int compare_integer(void *i1, void *i2)
+{
+    // When i1 is bigger than i2, they should be swapped
+    return ((Integer)i1)->value - ((Integer)i2)->value;
+}
+
+void list_sort_example()
+{
+    List L = create_list();
+    int int_array[] = {8, 2, 7, 6, 5, 4, 3, 2, -1};
+
+    for (int i = 0; int_array[i] != -1; i++)
+        append(L, create_integer(int_array[i]));
+
+    for_each_element(L, integer_print);
+
+    sort_list(L, compare_integer);
+
+    printf("\n");
+
+    for_each_element(L, integer_print);
+
+    free_list_func(L, free);
 }
 
 void list_example()
