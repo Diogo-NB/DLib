@@ -44,17 +44,20 @@ Node _create_node(void *new_node_data);
 // Removes a node from a list
 void remove_node(List L, Node N);
 
+// Removes all that nodes where func returns true
+void remove_nodes_where(List L, int (*func)(void *));
+
 // Finds a node where func returns true (1)
 Node find_node(List L, int (*func)(void *));
 
-// Calls a function (func) for each list's element, from start to end
+// Calls a function func for each list's element, from start to end
 void for_each_element(List L, void (*func)(void *));
 
-// Calls a function (func) for each list's element, from end to start
+// Calls a function func for each list's element, from end to start
 void for_each_element_reversed(List L, void (*func)(void *));
 
-// Sort using user's compare function (returns >0 when the data should be swapped)
-void sort_list(List L, int (*compare)(void *, void*));
+// Sort using user's compare function (returns > 0 when the data should be swapped)
+void sort_list(List L, int (*compare)(void *, void *));
 
 // Returns a new list containing the same elements
 List clone_list(List L);
@@ -68,13 +71,13 @@ int swap(Node n1, Node n2);
 // Returns true (1) if the list is empty
 int is_list_empty(List L);
 
-// Deallocates the list (doesn't free the data in each node!)
+// Deallocates the list and nodes
 void free_list(List L);
 
-// free_list(L) while calling a free data function passed by the user for each node
+// free_list while calling a free data function passed by the user for each node's data
 void free_list_func(List L, void (*free_data_func)(void *));
 
-// Return the list's length
+// Calculates and returns the list's length
 int list_length(List L);
 
 #endif

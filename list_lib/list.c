@@ -175,7 +175,7 @@ List clone_list_reversed(List L)
     return new_list;
 }
 
-// Creates a new next node
+// Creates a new node
 Node _create_node(void *new_node_data)
 {
     Node new_node = (Node)malloc(sizeof(struct node));
@@ -211,6 +211,24 @@ void remove_node(List L, Node x)
             x->next->prev = x->prev;
         }
         free(x);
+    }
+}
+
+// Removes all that nodes where func returns true
+void remove_nodes_where(List L, int (*func)(void *))
+{
+    if (L == NULL || func == NULL)
+        return;
+
+    Node aux = L->start;
+    Node aux_next;
+    while (aux != NULL)
+    {   
+        aux_next = aux->next;
+        if (func(aux->data))
+            remove_node(L, aux);
+
+        aux = aux_next;
     }
 }
 
@@ -250,7 +268,7 @@ int is_list_empty(List L)
     return L->start == NULL;
 }
 
-// Deallocates the list (doesn't free the data in each node!)
+// Deallocates the list and nodes
 void free_list(List L)
 {
     if (L == NULL)
@@ -266,7 +284,7 @@ void free_list(List L)
     free(L);
 }
 
-// free_list(S) while calling a free data function passed by the user for each node
+// free_list while calling a free data function passed by the user for each node's data
 void free_list_func(List L, void (*free_data_func)(void *))
 {
     if (L == NULL)
@@ -283,7 +301,7 @@ void free_list_func(List L, void (*free_data_func)(void *))
     free(L);
 }
 
-// Return the list's length
+// Calculates and returns the list's length
 int list_length(List L)
 {
     if (L == NULL)

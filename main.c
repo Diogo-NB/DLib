@@ -22,13 +22,15 @@ int find_3(void *data);
 
 int find_2(void *data);
 
+int is_less_than_4(void *data);
+
 void list_sort_example();
 
 int compare_integer(void *i1, void *i2);
 
 int main(void)
-{ 
-    list_sort_example();
+{
+    list_example();
     return 0;
 }
 
@@ -40,6 +42,11 @@ int find_3(void *data)
 int find_2(void *data)
 {
     return ((Integer)data)->value == 2;
+}
+
+int is_less_than_4(void *data)
+{
+    return ((Integer)data)->value < 4;
 }
 
 int compare_integer(void *i1, void *i2)
@@ -83,20 +90,23 @@ void list_example()
     printf("\nEmpty: %d", is_list_empty(L));
     printf("\nLength: %d\n", list_length(L));
 
-    printf("[");
     for_each_element(L, integer_print);
-    printf(" ]\n");
+
+    printf("\n");
 
     remove_node(L, find_node(L, find_3)); // Removes the node that contains 3
 
     Node node_4 = find_node(L, find_2)->next;
-    printf("Teste: %d\n", *(Integer)node_4->data);
 
     prepend_from_node(L, node_4, create_integer(3));
 
-    printf("[");
     for_each_element_reversed(L, integer_print);
-    printf(" ]\n");
+
+    remove_nodes_where(L, is_less_than_4);
+
+    printf("\n");
+
+    for_each_element(L, integer_print);
 
     free_list_func(L, free);
 }
