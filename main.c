@@ -1,6 +1,7 @@
 #include "stack.h"
 #include "list.h"
-#include <stdbool.h>
+
+#include <stdio.h>
 
 // int wrapper for testing purpose
 struct integer

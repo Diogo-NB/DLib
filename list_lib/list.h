@@ -1,7 +1,6 @@
 #ifndef LIST_H_INCLUDED
 #define LIST_H_INCLUDED
 
-#include <stdio.h>
 #include <stdlib.h>
 
 // A list's node
