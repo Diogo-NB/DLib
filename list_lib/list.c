@@ -232,20 +232,6 @@ void remove_nodes_where(List L, int (*func)(void *))
     }
 }
 
-// Finds a node where func returns true (1)
-Node find_node(List L, int (*func)(void *))
-{
-    if (is_list_empty(L) != 0 || func == NULL)
-        return NULL;
-
-    Node aux;
-    for (aux = L->start; aux != NULL && !func(aux->data); aux = aux->next)
-    { /*--*/
-    }
-
-    return aux;
-}
-
 // Swaps data between two nodes
 int swap(Node n1, Node n2)
 {

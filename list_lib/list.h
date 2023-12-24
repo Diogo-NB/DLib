@@ -46,9 +46,6 @@ void remove_node(List L, Node N);
 // Removes all that nodes where func returns true
 void remove_nodes_where(List L, int (*func)(void *));
 
-// Finds a node where func returns true (1)
-Node find_node(List L, int (*func)(void *));
-
 // Calls a function func for each list's element, from start to end
 void for_each_element(List L, void (*func)(void *));
 
