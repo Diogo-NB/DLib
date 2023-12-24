@@ -49,25 +49,6 @@ Node append_from_node(List L, Node N, void *data)
     return new_node;
 }
 
-// Prepends an existing node
-Node prepend_from_node(List L, Node N, void *data)
-{
-    if (N == NULL || is_list_empty(L) != 0)
-        return NULL;
-
-    if (N == L->start)
-        return prepend(L, data);
-
-    Node new_node = _create_node(data);
-
-    new_node->next = N;
-    new_node->prev = N->prev;
-    N->prev->next = new_node;
-    N->prev = new_node;
-
-    return new_node;
-}
-
 // Inserts a new element at the start of the list and returns it's node
 Node prepend(List L, void *data)
 {
@@ -86,6 +67,25 @@ Node prepend(List L, void *data)
         L->start->prev = new_node;
         L->start = new_node;
     }
+    return new_node;
+}
+
+// Prepends an existing node
+Node prepend_from_node(List L, Node N, void *data)
+{
+    if (N == NULL || is_list_empty(L) != 0)
+        return NULL;
+
+    if (N == L->start)
+        return prepend(L, data);
+
+    Node new_node = _create_node(data);
+
+    new_node->next = N;
+    new_node->prev = N->prev;
+    N->prev->next = new_node;
+    N->prev = new_node;
+
     return new_node;
 }
 
@@ -211,24 +211,6 @@ void remove_node(List L, Node x)
             x->next->prev = x->prev;
         }
         free(x);
-    }
-}
-
-// Removes all that nodes where func returns true
-void remove_nodes_where(List L, int (*func)(void *))
-{
-    if (L == NULL || func == NULL)
-        return;
-
-    Node aux = L->start;
-    Node aux_next;
-    while (aux != NULL)
-    {   
-        aux_next = aux->next;
-        if (func(aux->data))
-            remove_node(L, aux);
-
-        aux = aux_next;
     }
 }
 
