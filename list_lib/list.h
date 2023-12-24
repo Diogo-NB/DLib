@@ -49,6 +49,9 @@ void for_each_element(List L, void (*func)(void *));
 // Calls a function func for each list's element, from end to start
 void for_each_element_reversed(List L, void (*func)(void *));
 
+// Inserts a new element at the correct position to keep the list sorted using the compare function (same used in sort_list)
+Node insert_sorted(List L, void* data, int (*compare)(void *, void *));
+
 // Sort using user's compare function (returns > 0 when the data should be swapped)
 void sort_list(List L, int (*compare)(void *, void *));
 

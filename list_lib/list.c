@@ -89,6 +89,31 @@ Node prepend_from_node(List L, Node N, void *data)
     return new_node;
 }
 
+// Inserts a new element at the correct position to keep the list sorted using the compare function (same used in sort_list)
+Node insert_sorted(List L, void *data, int (*compare)(void *, void *))
+{
+    if (L == NULL || compare == NULL)
+        return NULL;
+
+    if (is_list_empty(L))
+        return append(L, data);
+
+    Node aux = L->start;
+
+    while (aux != NULL)
+    {
+        // if (((User)aux->data)->id >= (((User)data))->id)
+        if (compare(aux->data, data))
+            return prepend_from_node(L, aux, data);
+        aux = aux->next;
+    }
+
+    if (aux == NULL)
+        return append(L, data);
+
+    return prepend(L, data);
+}
+
 // Calls a function (func) for each list's element, from start to end
 void for_each_element(List L, void (*func)(void *))
 {
@@ -117,7 +142,7 @@ void for_each_element_reversed(List L, void (*func)(void *))
     }
 }
 
-// Sort using user's compare function
+// Sort using user's compare function (optimized bubble sort)
 void sort_list(List L, int (*compare)(void *, void *))
 {
     if (L == NULL || compare == NULL || (L->start == L->end))
