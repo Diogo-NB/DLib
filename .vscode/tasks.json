@@ -7,9 +7,11 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-I${workspaceFolder}\\list_lib", // Including all headers files (.h) inside list_lib folder
+                "-I${workspaceFolder}\\graph_lib", // Including all headers files (.h) inside list_lib folder
                 "-g",
                 "${workspaceFolder}\\*.c",
                 "${workspaceFolder}\\list_lib\\*.c", // Compiling all .c files inside list_lib folder
+                "${workspaceFolder}\\graph_lib\\*.c", // Compiling all .c files inside list_lib folder
                 "-o",
                 "${workspaceFolder}\\${fileBasenameNoExtension}.exe"
             ],            
