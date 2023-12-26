@@ -200,6 +200,40 @@ List clone_list_reversed(List L)
     return new_list;
 }
 
+// clone_list() with a custom copy_data function for each element
+List clone_list_custom(List L, void *(*copy_data)(void *))
+{
+    if (L == NULL)
+        return NULL;
+
+    List new_list = create_list();
+
+    Node aux = L->start;
+    while (aux != NULL)
+    {
+        append(new_list, copy_data(aux->data));
+        aux = aux->next;
+    }
+    return new_list;
+}
+
+// clone_list_reversed() with a custom copy_data function for each element
+List clone_list_custom_reversed(List L, void *(*copy_data)(void *))
+{
+    if (L == NULL)
+        return NULL;
+
+    List new_list = create_list();
+
+    Node aux = L->end;
+    while (aux != NULL)
+    {
+        append(new_list, copy_data(aux->data));
+        aux = aux->prev;
+    }
+    return new_list;
+}
+
 // Creates a new node
 Node _create_node(void *new_node_data)
 {

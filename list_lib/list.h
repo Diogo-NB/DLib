@@ -22,6 +22,17 @@ struct list
 // A list's pointer
 typedef struct list *List;
 
+/*
+struct iterator
+{
+    void *data;
+    int index;
+    void (*function)(void *);
+};
+
+typedef struct iterator *Iterator;
+*/
+
 // Allocates memory for a new List
 List create_list();
 
@@ -50,7 +61,7 @@ void for_each_element(List L, void (*func)(void *));
 void for_each_element_reversed(List L, void (*func)(void *));
 
 // Inserts a new element at the correct position to keep the list sorted using the compare function (same used in sort_list)
-Node insert_sorted(List L, void* data, int (*compare)(void *, void *));
+Node insert_sorted(List L, void *data, int (*compare)(void *, void *));
 
 // Sort using user's compare function (returns > 0 when the data should be swapped)
 void sort_list(List L, int (*compare)(void *, void *));
@@ -60,6 +71,12 @@ List clone_list(List L);
 
 // Returns a new list containing the same elements in reversed order
 List clone_list_reversed(List L);
+
+// clone_list() with a custom copy_data function for each element
+List clone_list_custom(List L, void *(*copy_data)(void *));
+
+// clone_list_reversed() with a custom copy_data function for each element
+List clone_list_custom_reversed(List L, void *(*copy_data)(void *));
 
 // Swaps data between two nodes
 int swap(Node n1, Node n2);

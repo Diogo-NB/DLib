@@ -16,7 +16,7 @@ typedef struct user *User;
 User create_user(char *name, int id)
 {
     User new_user = (User)malloc(sizeof(struct user));
-    new_user->name = name;
+    new_user->name = strcpy((char *)malloc(sizeof(char) * 30), name);
     new_user->id = id;
 
     return new_user;
@@ -38,6 +38,12 @@ int compare_user(void *u1, void *u2)
     return ((User)u1)->id > ((User)u2)->id;
 }
 
+void *copy_user(void *userp)
+{
+    const User user = (User)userp;
+    return create_user(user->name, (user->id) * -1);
+}
+
 void clear()
 {
     char c;
@@ -50,14 +56,14 @@ void clear()
 
 int main()
 {
-    char *nameInput;
+    char nameInput[30];
     int idInput;
     int option = 0;
     List users = create_list();
 
     do
     {
-        // printf("------ MENU ------\n1 - Add new user\n2 - Print list\n3 - Sort\n4 - Sort insert\n5 - Exit");
+        // printf("------ MENU ------\n1 - Add new user\n2 - Print list\n3 - Sort\n4 - Sort insert\n5 - Custom clone test\n6 - Exit");
         scanf("%d", &option);
 
         // clear();
@@ -65,7 +71,6 @@ int main()
         switch (option)
         {
         case 1:
-            nameInput = (char *)malloc(sizeof(char) * 30);
             printf("Id: ");
             scanf("%d", &idInput);
             // fflush(stdin);
@@ -90,7 +95,6 @@ int main()
             sort_list(users, compare_user);
             break;
         case 4:
-            nameInput = (char *)malloc(sizeof(char) * 30);
             printf("Id: ");
             scanf("%d", &idInput);
             // fflush(stdin);
@@ -106,12 +110,19 @@ int main()
 
             break;
         case 5:
+            List copy = clone_list_custom_reversed(users, copy_user);
+            printf("\n%d Custom users: {\n", list_length(users));
+            for_each_element(copy, print_user);
+            printf("}\n");
+            free_list_func(copy, free_user);
+            break;
+        case 6:
             break;
         default:
             printf("Enter a valid option!\n");
             break;
         }
-    } while (option != 5);
+    } while (option != 6);
 
     free_list_func(users, free_user);
     return 0;
