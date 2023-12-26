@@ -38,6 +38,11 @@ int compare_user(void *u1, void *u2)
     return ((User)u1)->id > ((User)u2)->id;
 }
 
+int equal_id(void *u, void *id)
+{
+    return ((User)u)->id == *((int *)id);
+}
+
 void *copy_user(void *userp)
 {
     const User user = (User)userp;
@@ -63,17 +68,14 @@ int main()
 
     do
     {
-        // printf("------ MENU ------\n1 - Add new user\n2 - Print list\n3 - Sort\n4 - Sort insert\n5 - Custom clone test\n6 - Exit");
+        printf("\n------ MENU ------\n1 - Add new user\n2 - Print list\n3 - Sort\n4 - Sort insert\n5 - Custom clone test\n6 - Search by id\n7 - Remove user\n8 - Exit\n--> ");
         scanf("%d", &option);
-
-        // clear();
 
         switch (option)
         {
         case 1:
             printf("Id: ");
             scanf("%d", &idInput);
-            // fflush(stdin);
             clear();
 
             printf("Name: ");
@@ -84,12 +86,12 @@ int main()
 
             append(users, create_user(nameInput, idInput));
 
-            printf("Added %s\n", nameInput);
+            printf("Added %s", nameInput);
             break;
         case 2:
             printf("\n%d users {\n", list_length(users));
             for_each_element(users, print_user);
-            printf("}\n");
+            printf("}");
             break;
         case 3:
             sort_list(users, compare_user);
@@ -97,7 +99,6 @@ int main()
         case 4:
             printf("Id: ");
             scanf("%d", &idInput);
-            // fflush(stdin);
             clear();
 
             printf("Name: ");
@@ -113,16 +114,44 @@ int main()
             List copy = clone_list_custom_reversed(users, copy_user);
             printf("\n%d Custom users: {\n", list_length(users));
             for_each_element(copy, print_user);
-            printf("}\n");
+            printf("}");
             free_list_func(copy, free_user);
             break;
         case 6:
+            printf("Id: ");
+            scanf("%d", &idInput);
+            clear();
+
+            Node found_node = find_node(users, equal_id, &idInput);
+            if (found_node != NULL)
+                print_user(found_node->data);
+            else
+                printf("User not found!");
+
+            break;
+        case 7:
+            printf("Id: ");
+            scanf("%d", &idInput);
+            clear();
+
+            Node found_node2 = find_node(users, equal_id, &idInput);
+            if (found_node != NULL)
+                remove_node(users, found_node2);
+            else
+                printf("User not found!\n");
+            break;
+        case 8:
+            List l = find_all_nodes(users, compare_user, create_user("", 6));
+            printf("\n%d users found {\n", list_length(l));
+            for_each_element(l, print_user);
+            printf("}");
+            free_list(l);
             break;
         default:
             printf("Enter a valid option!\n");
             break;
         }
-    } while (option != 6);
+    } while (option != 8);
 
     free_list_func(users, free_user);
     return 0;

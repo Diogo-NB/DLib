@@ -114,6 +114,17 @@ Node insert_sorted(List L, void *data, int (*compare)(void *, void *))
     return prepend(L, data);
 }
 
+/*
+struct iterator
+{
+    void *_data;
+    int index;
+    void (*function)(Iterator);
+};
+
+typedef struct iterator *Iterator;
+*/
+
 // Calls a function (func) for each list's element, from start to end
 void for_each_element(List L, void (*func)(void *))
 {
@@ -140,6 +151,42 @@ void for_each_element_reversed(List L, void (*func)(void *))
         func(aux->data);
         aux = aux->prev;
     }
+}
+
+// Returns the first node where compare(node's data, compareData) returns true (1)
+Node find_node(List L, int (*compare)(void *, void *), void *compareData)
+{
+    if (is_list_empty(L) != 0 || compare == NULL || compareData == NULL)
+        return NULL;
+
+    Node aux = L->start;
+    while (aux != NULL)
+    {
+        if (compare(aux->data, compareData))
+            break;
+        aux = aux->next;
+    }
+
+    return aux;
+}
+
+// Returns a sublist of nodes where compare(node's data, compareData) returns true (1)
+List find_all_nodes(List L, int (*compare)(void *, void *), void *compareData)
+{
+    if (is_list_empty(L) != 0 || compare == NULL || compareData == NULL)
+        return NULL;
+
+    List l = create_list();
+
+    Node aux = L->start;
+    while (aux != NULL)
+    {
+        if (compare(aux->data, compareData))
+            append(l, aux->data);
+        aux = aux->next;
+    }
+
+    return l;
 }
 
 // Sort using user's compare function (optimized bubble sort)

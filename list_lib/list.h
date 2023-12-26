@@ -25,9 +25,9 @@ typedef struct list *List;
 /*
 struct iterator
 {
-    void *data;
+    void *_data;
     int index;
-    void (*function)(void *);
+    void (*function)(Iterator);
 };
 
 typedef struct iterator *Iterator;
@@ -59,6 +59,12 @@ void for_each_element(List L, void (*func)(void *));
 
 // Calls a function func for each list's element, from end to start
 void for_each_element_reversed(List L, void (*func)(void *));
+
+// Returns the first node where compare(node's data, compareData) returns true (1)
+Node find_node(List L, int (*compare)(void *, void *), void* compareData);
+
+// Returns a sublist of nodes where compare(node's data, compareData) returns true (1)
+List find_all_nodes(List L, int (*compare)(void *, void *), void *compareData);
 
 // Inserts a new element at the correct position to keep the list sorted using the compare function (same used in sort_list)
 Node insert_sorted(List L, void *data, int (*compare)(void *, void *));
