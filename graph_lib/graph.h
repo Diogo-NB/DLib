@@ -20,20 +20,34 @@ struct vertex
 {
     float defaultWeight;
     int value;
-    int open;
-    float estimate;
-    struct vertice *predecessor;
     List edges;
+    void *data;
+
+    // Dijkstra
+    int _open;
+    float _estimate;
+    struct vertex *_predecessor;
 };
 
 typedef struct vertex *Vertex;
 
-struct edge
-{
-    float weight;
-    Vertex vertex;
-};
+Graph create_graph(int defaultWeight, int is_directional);
 
-typedef struct edge *Edge;
+void free_graph(Graph g);
+
+// vertices
+Vertex create_vertex(Graph g, int value, void *data);
+
+Vertex get_vertex(Node node);
+
+Vertex find_vertex(List vertices, int value);
+
+int _compare_vertex(void *v1, void *value);
+
+void print_vertex(void *v);
+
+void print_vertices(List vertices);
+
+void free_vertex(void *v);
 
 #endif
