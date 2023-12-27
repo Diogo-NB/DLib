@@ -58,6 +58,8 @@ void print_vertex(void *v);
 
 void print_vertices(List vertices);
 
+void remove_vertex(Graph g, Vertex v);
+
 void free_vertex(void *v);
 
 // edges
@@ -77,10 +79,10 @@ Edge find_edge(Vertex from, Vertex to);
 
 void remove_edge_values(Graph g, int fromValue, int toValue);
 
-void remove_edge(Vertex from, Vertex to);
+void remove_edge(Graph g, Vertex from, Vertex to);
 
 void print_edge(void *v);
 
-void print_vertex_edges(void* v);
+void print_vertex_edges(void *v);
 
 #endif

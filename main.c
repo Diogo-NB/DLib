@@ -31,5 +31,9 @@ void main()
 
     print_graph(g);
 
+    remove_vertex(g, vs[3]);
+
+    print_graph(g);
+
     free_graph(g);
 }

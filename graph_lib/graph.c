@@ -17,7 +17,14 @@ void free_graph(Graph g)
 
 void print_graph(Graph g)
 {
-    printf("\nGraph { Order = %d, isDirectional = %d, Vertices = ", g->order, g->is_directional);
-    for_each_element(g->vertices, print_vertex_edges);
-    printf("\n}");
+    if (g->order == 0)
+    {
+        printf("\nGraph { }");
+    }
+    else
+    {
+        printf("\nGraph { Order = %d, isDirectional = %d, Vertices = ", g->order, g->is_directional);
+        for_each_element(g->vertices, print_vertex_edges);
+        printf("\n}");
+    }
 }

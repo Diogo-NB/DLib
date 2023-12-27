@@ -90,23 +90,18 @@ void remove_edge_values(Graph g, int fromValue, int toValue)
     if (v2 == NULL)
         return;
 
-    if (g->is_directional)
-    {
-        remove_edge(v1, v2);
-    }
-    else
-    {
-        remove_edge(v1, v2);
-        remove_edge(v2, v1);
-    }
+    remove_edge(g, v1, v2);
 }
 
-void remove_edge(Vertex from, Vertex to)
+void remove_edge(Graph g, Vertex from, Vertex to)
 {
     if (from == NULL || to == NULL)
         return;
 
     removes_node_free(from->edges, find_node(from->edges, _compare_edge_vertices, to), free);
+
+    if (!g->is_directional)
+        removes_node_free(to->edges, find_node(to->edges, _compare_edge_vertices, from), free);
 }
 
 void print_edge(void *e)
