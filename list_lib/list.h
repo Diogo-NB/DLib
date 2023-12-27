@@ -50,7 +50,7 @@ void for_each_element(List L, void (*func)(void *));
 void for_each_element_reversed(List L, void (*func)(void *));
 
 // Returns the first node where compare(node's data, compareData) returns true (1)
-Node find_node(List L, int (*compare)(void *, void *), void* compareData);
+Node find_node(List L, int (*compare)(void *, void *), void *compareData);
 
 // Returns a sublist of nodes where compare(node's data, compareData) returns true (1)
 List find_all_nodes(List L, int (*compare)(void *, void *), void *compareData);
@@ -81,6 +81,9 @@ int is_list_empty(List L);
 
 // Deallocates the list and nodes
 void free_list(List L);
+
+// Removes a node and free it's data
+void removes_node_free(List L, Node x, void (*free_data_func)(void *));
 
 // free_list while calling a free data function passed by the user for each node's data
 void free_list_func(List L, void (*free_data_func)(void *));

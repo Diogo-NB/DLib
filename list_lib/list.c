@@ -317,6 +317,15 @@ void remove_node(List L, Node x)
     }
 }
 
+// Removes a node and free it's data
+void removes_node_free(List L, Node x, void (*free_data_func)(void *))
+{
+    if (L == NULL || x == NULL || free_data_func == NULL)
+        return;
+    free_data_func(x->data);
+    remove_node(L, x);
+}
+
 // Swaps data between two nodes
 int swap(Node n1, Node n2)
 {

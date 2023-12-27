@@ -3,6 +3,9 @@
 // vertices
 Vertex create_vertex(Graph g, int value, void *data)
 {
+    if (g == NULL)
+        return NULL;
+
     Vertex v = (Vertex)malloc(sizeof(struct vertex));
     v->value = value;
     v->edges = create_list();
@@ -57,6 +60,6 @@ void print_vertices(List vertices)
 
 void free_vertex(void *v)
 {
-    free_list(((Vertex)v)->edges); // TODO Free edges
+    free_list_func(((Vertex) v)->edges, free);
     free(v);
 }

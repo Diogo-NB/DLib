@@ -8,7 +8,6 @@
 
 struct graph
 {
-    float defaultWeight;
     int order;
     int is_directional;
     List vertices;
@@ -18,7 +17,6 @@ typedef struct graph *Graph;
 
 struct vertex
 {
-    float defaultWeight;
     int value;
     List edges;
     void *data;
@@ -39,9 +37,11 @@ struct edge
 
 typedef struct edge *Edge;
 
-Graph create_graph(int defaultWeight, int is_directional);
+Graph create_graph(int is_directional);
 
 void free_graph(Graph g);
+
+void print_graph(Graph g);
 
 // vertices
 Vertex create_vertex(Graph g, int value, void *data);
@@ -61,20 +61,26 @@ void print_vertices(List vertices);
 void free_vertex(void *v);
 
 // edges
-void create_edge(Graph g, int fromValue, int toValue, float weight);
+void create_edge_values(Graph g, int fromValue, int toValue, float weight);
 
-void create_edgeD(Vertex from, Vertex to, float weight);
+void create_edge(Vertex from, Vertex to, float weight);
 
-Edge get_edge(Node *node);
+int _compare_edge_vertices(void *e, void *v);
 
-Edge find_edge(Graph g, int fromValue, int toValue);
+int _compare_edge_weights(void *e1, void *e2);
 
-Edge find_edgeD(Vertex fromVertice, Vertex toVertice);
+Edge get_edge(Node node);
 
-void remove_edge(Graph g, int fromValue, int toValue);
+Edge find_edge_values(Graph g, int fromValue, int toValue);
 
-void remove_edgeD(Vertex fromVertice, Vertex toVertice);
+Edge find_edge(Vertex from, Vertex to);
 
-void print_edges(Vertex v);
+void remove_edge_values(Graph g, int fromValue, int toValue);
+
+void remove_edge(Vertex from, Vertex to);
+
+void print_edge(void *v);
+
+void print_vertex_edges(void* v);
 
 #endif
