@@ -63,7 +63,7 @@ void free_vertex(void *v);
 // edges
 void create_edge_values(Graph g, int fromValue, int toValue, float weight);
 
-void create_edge(Vertex from, Vertex to, float weight);
+void create_edge(Graph g, Vertex from, Vertex to, float weight);
 
 int _compare_edge_vertices(void *e, void *v);
 

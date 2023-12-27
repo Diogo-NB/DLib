@@ -14,18 +14,10 @@ void create_edge_values(Graph g, int fromValue, int toValue, float weight)
     if (v2 == NULL)
         return;
 
-    if (g->is_directional)
-    {
-        create_edge(v1, v2, weight);
-    }
-    else
-    {
-        create_edge(v1, v2, weight);
-        create_edge(v2, v1, weight);
-    }
+    create_edge(g, v1, v2, weight);
 }
 
-void create_edge(Vertex from, Vertex to, float weight)
+void create_edge(Graph g, Vertex from, Vertex to, float weight)
 {
     if (from == NULL || to == NULL)
         return;
@@ -35,6 +27,15 @@ void create_edge(Vertex from, Vertex to, float weight)
     e->weight = weight;
 
     insert_sorted(from->edges, e, _compare_edge_weights);
+
+    if (!g->is_directional)
+    {
+        e = (Edge)malloc(sizeof(struct edge));
+        e->vertex = from;
+        e->weight = weight;
+
+        insert_sorted(to->edges, e, _compare_edge_weights);
+    }
 }
 
 int _compare_edge_vertices(void *e, void *v)
@@ -110,12 +111,12 @@ void remove_edge(Vertex from, Vertex to)
 
 void print_edge(void *e)
 {
-    printf("(%d, %.1f) ", ((Edge)e)->vertex->value, ((Edge)e)->weight);
+    printf("[%d, %.1f] ", ((Edge)e)->vertex->value, ((Edge)e)->weight);
 }
 
 void print_vertex_edges(void *v)
 {
-    printf("\nVertex %d -> { ", ((Vertex)v)->value);
+    printf("\n%d -> { ", ((Vertex)v)->value);
     for_each_element(((Vertex)v)->edges, print_edge);
     printf("}");
 }
