@@ -22,17 +22,6 @@ struct list
 // A list's pointer
 typedef struct list *List;
 
-/*
-struct iterator
-{
-    void *_data;
-    int index;
-    void (*function)(Iterator);
-};
-
-typedef struct iterator *Iterator;
-*/
-
 // Allocates memory for a new List
 List create_list();
 

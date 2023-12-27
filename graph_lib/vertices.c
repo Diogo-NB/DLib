@@ -9,7 +9,7 @@ Vertex create_vertex(Graph g, int value, void *data)
     v->_open = 1;
     v->data = data;
 
-    append(g->vertices, v);
+    insert_sorted(g->vertices, v, _compare_vertex);
     g->order++;
 
     return v;
@@ -25,7 +25,7 @@ Vertex find_vertex(List vertices, int value)
     if (vertices == NULL)
         return NULL;
 
-    Node node = find_node(vertices, _compare_vertex, &value);
+    Node node = find_node(vertices, _compare_vertex_value, &value);
 
     if (node == NULL)
         return NULL;
@@ -33,7 +33,12 @@ Vertex find_vertex(List vertices, int value)
     return get_vertex(node);
 }
 
-int _compare_vertex(void *v1, void *value)
+int _compare_vertex(void *v1, void *v2)
+{
+    return ((Vertex)v1)->value > ((Vertex)v2)->value;
+}
+
+int _compare_vertex_value(void *v1, void *value)
 {
     return ((Vertex)v1)->value == *(int *)value;
 }

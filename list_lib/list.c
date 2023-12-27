@@ -100,18 +100,15 @@ Node insert_sorted(List L, void *data, int (*compare)(void *, void *))
 
     Node aux = L->start;
 
-    while (aux != NULL)
+    while (aux != NULL && !compare(aux->data, data))
     {
-        // if (((User)aux->data)->id >= (((User)data))->id)
-        if (compare(aux->data, data))
-            return prepend_from_node(L, aux, data);
         aux = aux->next;
     }
 
     if (aux == NULL)
         return append(L, data);
 
-    return prepend(L, data);
+    return prepend_from_node(L, aux, data);
 }
 
 /*

@@ -2,7 +2,6 @@
     "files.associations": {
         "stack.h": "c",
         "list.h": "c",
-        "string.h": "c",
         "graph.h": "c"
     }
 }
