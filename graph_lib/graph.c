@@ -1,5 +1,6 @@
 #include "graph.h"
 #include "stack.h"
+#include "queue.h"
 
 Graph create_graph(int is_directional)
 {
@@ -68,5 +69,36 @@ List depth_first(Graph g, Vertex start)
 
 List breadth_first(Graph g, Vertex start)
 {
+    if (g == NULL || start == NULL)
+        return NULL;
 
+    Queue queue = create_queue();
+    List L = create_list();
+    for_each_element(g->vertices, _open_vertex);
+
+    Vertex current;
+    enqueue(queue, start);
+
+    while (!is_queue_empty(queue))
+    {
+        current = (Vertex)qpop(queue);
+        if (current->_open) // If hasn't been visited
+        {
+            _close_vertex(current);
+
+            append(L, current);
+
+            // Visit each adjacente vertice
+            Node aux = current->edges->start; // All edges from current
+
+            while (aux != NULL)
+            {
+                enqueue(queue, get_edge(aux)->vertex); // Push where the edge leads
+                aux = aux->next;
+            }
+        }
+    }
+
+    free_queue(queue);
+    return L;
 }

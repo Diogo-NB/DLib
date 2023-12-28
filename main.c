@@ -31,7 +31,11 @@ void main()
 
     print_graph(g);
 
-    for_each_element(depth_first(g, vs[1]), print_vertex);  
+    printf("\n");
+    for_each_element(depth_first(g, vs[1]), print_vertex);
+    
+    printf("\n");
+    for_each_element(breadth_first(g, vs[1]), print_vertex);
 
     free_graph(g);
 }
