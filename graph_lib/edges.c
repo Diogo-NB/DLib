@@ -1,6 +1,5 @@
 #include "graph.h"
 
-// edges
 void create_edge_values(Graph g, int fromValue, int toValue, float weight)
 {
     if (g == NULL)

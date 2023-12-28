@@ -1,10 +1,9 @@
 #ifndef GRAPH_H_INCLUDED
 #define GRAPH_H_INCLUDED
 
-#include <stdlib.h>
+#include "list_lib.h"
 #include <stdio.h>
 #include <float.h>
-#include "list.h"
 
 struct graph
 {

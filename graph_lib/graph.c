@@ -1,6 +1,4 @@
 #include "graph.h"
-#include "stack.h"
-#include "queue.h"
 
 Graph create_graph(int is_directional)
 {
