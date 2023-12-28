@@ -2,6 +2,9 @@
 
 Graph create_graph(int is_directional)
 {
+    if (is_directional < 0 || is_directional > 1)
+        return NULL;
+
     Graph g = (Graph)malloc(sizeof(struct graph));
     g->order = 0;
     g->is_directional = is_directional;
