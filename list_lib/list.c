@@ -101,26 +101,13 @@ Node insert_sorted(List L, void *data, int (*compare)(void *, void *))
     Node aux = L->start;
 
     while (aux != NULL && !compare(aux->data, data))
-    {
         aux = aux->next;
-    }
-
+    
     if (aux == NULL)
         return append(L, data);
 
     return prepend_from_node(L, aux, data);
 }
-
-/*
-struct iterator
-{
-    void *_data;
-    int index;
-    void (*function)(Iterator);
-};
-
-typedef struct iterator *Iterator;
-*/
 
 // Calls a function (func) for each list's element, from start to end
 void for_each_element(List L, void (*func)(void *))

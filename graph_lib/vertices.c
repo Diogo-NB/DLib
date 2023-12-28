@@ -1,6 +1,5 @@
 #include "graph.h"
 
-// vertices
 Vertex create_vertex(Graph g, int value, void *data)
 {
     if (g == NULL)
@@ -44,6 +43,16 @@ int _compare_vertex(void *v1, void *v2)
 int _compare_vertex_value(void *v1, void *value)
 {
     return ((Vertex)v1)->value == *(int *)value;
+}
+
+void _close_vertex(void *v)
+{
+    ((Vertex)v)->_open = 0;
+}
+
+void _open_vertex(void *v)
+{
+    ((Vertex)v)->_open = 1;
 }
 
 void print_vertex(void *v)

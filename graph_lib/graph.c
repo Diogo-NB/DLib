@@ -1,4 +1,5 @@
 #include "graph.h"
+#include "stack.h"
 
 Graph create_graph(int is_directional)
 {
@@ -27,4 +28,45 @@ void print_graph(Graph g)
         for_each_element(g->vertices, print_vertex_edges);
         printf("\n}");
     }
+}
+
+List depth_first(Graph g, Vertex start)
+{
+    if (g == NULL || start == NULL)
+        return NULL;
+
+    Stack stack = create_stack();
+    List L = create_list();
+    for_each_element(g->vertices, _open_vertex);
+
+    Vertex current;
+    push(stack, start);
+
+    while (!is_stack_empty(stack))
+    {
+        current = (Vertex)pop(stack);
+        if (current->_open) // If hasn't been visited
+        {
+            _close_vertex(current);
+
+            append(L, current);
+
+            // Visit each adjacente vertice
+            Node aux = current->edges->end; // All edges from current
+
+            while (aux != NULL)
+            {
+                push(stack, get_edge(aux)->vertex); // Push where the edge leads
+                aux = aux->prev;
+            }
+        }
+    }
+
+    free_stack(stack);
+    return L;
+}
+
+List breadth_first(Graph g, Vertex start)
+{
+
 }

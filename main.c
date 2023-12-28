@@ -31,9 +31,7 @@ void main()
 
     print_graph(g);
 
-    remove_vertex(g, vs[3]);
-
-    print_graph(g);
+    for_each_element(depth_first(g, vs[1]), print_vertex);  
 
     free_graph(g);
 }

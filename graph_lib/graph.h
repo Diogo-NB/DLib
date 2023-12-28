@@ -43,7 +43,11 @@ void free_graph(Graph g);
 
 void print_graph(Graph g);
 
-// vertices
+List depth_first(Graph g, Vertex start);
+
+List breadth_first(Graph g, Vertex start);
+
+// Vertices
 Vertex create_vertex(Graph g, int value, void *data);
 
 Vertex get_vertex(Node node);
@@ -54,6 +58,10 @@ int _compare_vertex(void *v1, void *v2);
 
 int _compare_vertex_value(void *v1, void *value);
 
+void _close_vertex(void *v);
+
+void _open_vertex(void *v);
+
 void print_vertex(void *v);
 
 void print_vertices(List vertices);
@@ -62,7 +70,7 @@ void remove_vertex(Graph g, Vertex v);
 
 void free_vertex(void *v);
 
-// edges
+// Edges
 void create_edge_values(Graph g, int fromValue, int toValue, float weight);
 
 void create_edge(Graph g, Vertex from, Vertex to, float weight);
