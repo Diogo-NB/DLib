@@ -91,5 +91,13 @@ void remove_edge(Graph g, Vertex from, Vertex to);
 void print_edge(void *v);
 
 void print_vertex_edges(void *v);
+ 
+List shortest_path(Graph g, Vertex from, Vertex to);
+
+// Dijkstra
+void _reset_vertex(void *v);
+
+void _debug_print_vertex(void* v);
+
 
 #endif

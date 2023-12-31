@@ -50,6 +50,7 @@ int main(void)
             for_each_element(breadth_first(g, find_vertex(g->vertices, input)), print_vertex);
             break;
         case 6:
+            shortest_path(g, get_vertex(g->vertices->start), get_vertex(g->vertices->end));
             break;
         default:
             printf("Enter a valid option!\n");

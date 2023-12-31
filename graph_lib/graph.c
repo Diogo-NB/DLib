@@ -103,3 +103,17 @@ List breadth_first(Graph g, Vertex start)
     free_queue(queue);
     return L;
 }
+
+List shortest_path(Graph g, Vertex from, Vertex to)
+{
+    if (g == NULL || from == NULL || to == NULL)
+        return NULL;
+
+    for_each_element(g->vertices, _reset_vertex);
+    for_each_element(g->vertices, _debug_print_vertex);
+
+    from->_estimate = 0.0f;
+    
+
+    return NULL;
+}
