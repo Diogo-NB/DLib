@@ -50,13 +50,18 @@ int main(void)
             for_each_element(breadth_first(g, find_vertex(g->vertices, input)), print_vertex);
             break;
         case 6:
-            shortest_path(g, get_vertex(g->vertices->start), get_vertex(g->vertices->end));
+            scanf("%d %d", &from, &to);
+
+            printf("\nShortest path %d --> %d :", from, to);
+            print_path(shortest_path_values(g, from, to));
+            break;
+        case 7:
             break;
         default:
             printf("Enter a valid option!\n");
             break;
         }
-    } while (option != 6);
+    } while (option != 7);
 
     free_graph(g);
 

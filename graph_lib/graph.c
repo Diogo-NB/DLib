@@ -104,16 +104,29 @@ List breadth_first(Graph g, Vertex start)
     return L;
 }
 
+List shortest_path_values(Graph g, int fromValue, int toValue)
+{
+    Vertex from = find_vertex(g->vertices, fromValue);
+    Vertex to = find_vertex(g->vertices, toValue);
+
+    return shortest_path(g, from, to);
+}
+
 List shortest_path(Graph g, Vertex from, Vertex to)
 {
     if (g == NULL || from == NULL || to == NULL)
         return NULL;
 
-    for_each_element(g->vertices, _reset_vertex);
-    for_each_element(g->vertices, _debug_print_vertex);
+    _run_dijkstra(g, from);
 
-    from->_estimate = 0.0f;
-    
+    List shortest_path = create_list();
 
-    return NULL;
+    Vertex v = to;
+    while (v != NULL)
+    {
+        prepend(shortest_path, v);
+        v = v->_predecessor;
+    }
+
+    return shortest_path;
 }

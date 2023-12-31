@@ -91,13 +91,20 @@ void remove_edge(Graph g, Vertex from, Vertex to);
 void print_edge(void *v);
 
 void print_vertex_edges(void *v);
- 
+
+List shortest_path_values(Graph g, int fromValue, int toValue);
+
 List shortest_path(Graph g, Vertex from, Vertex to);
 
-// Dijkstra
+// Dijkstra's algorithm
 void _reset_vertex(void *v);
 
-void _debug_print_vertex(void* v);
+void _debug_print_vertex(void *v);
 
+void _run_dijkstra(Graph g, Vertex start);
+
+void print_path(List path);
+
+int _compare_est(void *v1, void *v2);
 
 #endif
