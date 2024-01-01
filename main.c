@@ -14,22 +14,24 @@ int main(void)
 
     do
     {
-        // printf("\n------ MENU ------\n1 - Create vertex \n2 - Add edge\n3 - Print graph\n4 - Exit\n--> ");
+        printf("\n------ MENU ------\n1 - Create vertex \n2 - Add edge\n3 - Print graph\n4 - DFT\n5 - BFT\n6 - Find shortest path\n7 - Exit\n--> ");
         scanf("%d", &option);
 
+        printf("\n");
+        
         switch (option)
         {
         case 1:
-            printf("\nCreated vertex #%d", create_vertex(g, g->order, NULL)->value);
+            printf("Created vertex #%d", create_vertex(g, g->order, NULL)->value);
             break;
         case 2:
-            printf("\nFrom --> ");
+            printf("From --> ");
             scanf("%d", &from);
 
-            printf("\nTo --> ");
+            printf("To --> ");
             scanf("%d", &to);
 
-            printf("\nWeight --> ");
+            printf("Weight --> ");
             scanf("%d", &input);
 
             create_edge_values(g, from, to, input * 1.0f);
@@ -38,21 +40,24 @@ int main(void)
             print_graph(g);
             break;
         case 4:
-            printf("\nStart --> ");
+            printf("Start --> ");
             scanf("%d", &input);
-            printf("\nDepth first traversal from the #%d vertex: ", input);
+            printf("Depth first traversal from the #%d vertex: ", input);
             for_each_element(depth_first(g, find_vertex(g->vertices, input)), print_vertex);
             break;
         case 5:
-            printf("\nStart --> ");
+            printf("Start --> ");
             scanf("%d", &input);
-            printf("\nBreadth first traversal from the #%d vertex: ", input);
+            printf("Breadth first traversal from the #%d vertex: ", input);
             for_each_element(breadth_first(g, find_vertex(g->vertices, input)), print_vertex);
             break;
         case 6:
-            scanf("%d %d", &from, &to);
+            printf("From --> ");
+            scanf("%d", &from);
 
-            printf("\nShortest path %d --> %d :", from, to);
+            printf("To --> ");
+            scanf("%d", &to);
+
             print_path(shortest_path_values(g, from, to));
             break;
         case 7:
