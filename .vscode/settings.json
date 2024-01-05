@@ -5,6 +5,8 @@
         "graph.h": "c",
         "queue.h": "c",
         "list_lib.h": "c",
-        "float.h": "c"
+        "float.h": "c",
+        "graph_traversal.h": "c",
+        "graph_lib.h": "c"
     }
 }

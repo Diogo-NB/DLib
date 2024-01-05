@@ -1,4 +1,4 @@
-#include "graph.h"
+#include "graph_lib.h"
 
 int main(void)
 {
@@ -18,7 +18,7 @@ int main(void)
         scanf("%d", &option);
 
         printf("\n");
-        
+
         switch (option)
         {
         case 1:
