@@ -1,12 +1,7 @@
 {
     "files.associations": {
-        "stack.h": "c",
-        "list.h": "c",
-        "graph.h": "c",
-        "queue.h": "c",
-        "list_lib.h": "c",
-        "float.h": "c",
-        "graph_traversal.h": "c",
-        "graph_lib.h": "c"
+        "avl_tree.h": "c",
+        "random": "c",
+        "stdio.h": "c"
     }
 }
