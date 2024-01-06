@@ -3,6 +3,7 @@
 int main(void)
 {
     int input, option, from, to;
+    float f;
     Graph g;
 
     do
@@ -22,7 +23,7 @@ int main(void)
         switch (option)
         {
         case 1:
-            printf("Created vertex #%d", create_vertex(g, g->order, NULL)->value);
+            printf("Created vertex #%d", create_vertex(g, g->order)->value);
             break;
         case 2:
             printf("From --> ");
@@ -32,9 +33,9 @@ int main(void)
             scanf("%d", &to);
 
             printf("Weight --> ");
-            scanf("%d", &input);
+            scanf("%f", &f);
 
-            create_edge_values(g, from, to, input * 1.0f);
+            create_edge_values(g, from, to, f);
             break;
         case 3:
             print_graph(g);

@@ -1,6 +1,6 @@
 #include "graph.h"
 
-Vertex create_vertex(Graph g, int value, void *data)
+Vertex create_vertex(Graph g, int value)
 {
     if (g == NULL)
         return NULL;
@@ -9,7 +9,6 @@ Vertex create_vertex(Graph g, int value, void *data)
     v->value = value;
     v->edges = create_list();
     v->_open = 1;
-    v->data = data;
 
     insert_sorted(g->vertices, v, _compare_vertex);
     g->order++;

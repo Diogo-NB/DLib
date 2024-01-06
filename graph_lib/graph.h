@@ -18,7 +18,6 @@ struct vertex
 {
     int value;
     List edges;
-    void *data;
 
     // Dijkstra
     int _open;
@@ -43,7 +42,7 @@ void free_graph(Graph g);
 void print_graph(Graph g);
 
 // Vertices
-Vertex create_vertex(Graph g, int value, void *data);
+Vertex create_vertex(Graph g, int value);
 
 Vertex get_vertex(Node node);
 
