@@ -52,12 +52,10 @@ void clear()
     char c;
     scanf("%c", &c);
     while (c != '\n' && c != '\0')
-    {
         scanf("%c", &c);
-    }
 }
 
-int main()
+int main(void)
 {
     char nameInput[30];
     int idInput;
