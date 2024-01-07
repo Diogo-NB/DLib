@@ -4,6 +4,12 @@
         "random": "c",
         "stdio.h": "c",
         "stack.h": "c",
-        "queue.h": "c"
+        "queue.h": "c",
+        "system_error": "c",
+        "array": "c",
+        "functional": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c"
     }
 }

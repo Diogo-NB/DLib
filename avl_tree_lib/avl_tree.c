@@ -1,49 +1,64 @@
 #include "avl_tree.h"
 
-int avl_is_empty(AVL_Node root)
+AVL_Tree create_avl_tree(int (*comparef)(void *, void *))
 {
-    return root == NULL;
+    AVL_Tree T = (AVL_Tree)malloc(sizeof(struct avl_tree));
+    T->comparef = comparef;
+    T->root = NULL;
+    return T;
 }
 
-AVL_Node create_avl_node(int value)
+int avl_is_empty(AVL_Tree T)
+{
+    if (T == NULL)
+        return -1;
+
+    return T->root == NULL;
+}
+
+AVL_Node create_avl_node(void *data)
 {
     AVL_Node node = (AVL_Node)malloc(sizeof(struct avl_node));
     node->left = node->right = NULL;
-    node->value = value;
+    node->data = data;
     node->BF = 0;
     return node;
 }
 
-AVL_Node avl_insert(AVL_Node root, int value)
+void avl_insert(AVL_Tree T, void *data)
 {
-    if (avl_is_empty(root))
-        return create_avl_node(value);
+    AVL_Node root = T->root;
+    if (avl_is_empty(T))
+    {
+        T->root = create_avl_node(data);
+        return;
+    }
 
     AVL_Node candidate = NULL, candidate_parrent = NULL;
 
-    candidate = _avl_insert_node(root, value, &candidate_parrent);
-    _recalculate_BF(candidate, value);
+    candidate = _avl_insert_node(T, data, &candidate_parrent);
+    _recalculate_BF(candidate, data, T->comparef);
 
     if (candidate->BF == -2 || candidate->BF == 2)
     {
         if (candidate == root)
         {
-            root = rotate(candidate);
+            root = _rotate(candidate);
         }
         else
         {
             if (candidate_parrent->left == candidate)
-                candidate_parrent->left = rotate(candidate);
+                candidate_parrent->left = _rotate(candidate);
             else
-                candidate_parrent->right = rotate(candidate);
+                candidate_parrent->right = _rotate(candidate);
         }
     }
-    return root;
+    T->root = root;
 }
 
-AVL_Node _avl_insert_node(AVL_Node root, int value, AVL_Node *candidate_parent_pointer)
+AVL_Node _avl_insert_node(AVL_Tree T, void *data, AVL_Node *candidate_parent_pointer)
 {
-    AVL_Node node = root, node_parent = NULL, candidate = root;
+    AVL_Node node = T->root, node_parent = NULL, candidate = T->root;
     int flag = 0, compare_result;
 
     while (node != NULL && !flag)
@@ -60,7 +75,7 @@ AVL_Node _avl_insert_node(AVL_Node root, int value, AVL_Node *candidate_parent_p
 
         node_parent = node;
 
-        compare_result = comparef(&node->value, &value);
+        compare_result = T->comparef(node->data, data);
 
         // if (node->value < value)
         if (compare_result < 0)
@@ -75,23 +90,19 @@ AVL_Node _avl_insert_node(AVL_Node root, int value, AVL_Node *candidate_parent_p
     if (!flag)
     {
         // if (node_parent->value < value)
-        if (comparef(&node_parent->value, &value) < 0)
-            node_parent->right = create_avl_node(value);
+        if (T->comparef(node_parent->data, data) < 0)
+            node_parent->right = create_avl_node(data);
         else
-            node_parent->left = create_avl_node(value);
+            node_parent->left = create_avl_node(data);
     }
 
     return candidate;
 }
 
-void _recalculate_BF(AVL_Node candidate, int value)
+void _recalculate_BF(AVL_Node candidate, void *data, int (*comparef)(void *, void *))
 {
     AVL_Node aux = candidate;
-    int compare_result = comparef(&value, &aux->value);
-
-    // > 0 quando i1 > i2
-    // = 0 quando i1 = i2
-    // < 0 quando i1 < i2
+    int compare_result = comparef(data, aux->data);
 
     // while (aux->value != value)
     while (compare_result != 0)
@@ -107,11 +118,11 @@ void _recalculate_BF(AVL_Node candidate, int value)
             aux->BF++;
             aux = aux->left;
         }
-        compare_result = comparef(&value, &aux->value);
+        compare_result = comparef(data, aux->data);
     }
 }
 
-AVL_Node rotate(AVL_Node candidate)
+AVL_Node _rotate(AVL_Node candidate)
 {
     AVL_Node new_root = NULL;
 
@@ -217,10 +228,12 @@ AVL_Node _rotate_right_left(AVL_Node candidate)
     return new_root;
 }
 
-int comparef(void *i1, void *i2)
+/*
+int T->comparef(void *i1, void *i2)
 {
     // > 0 quando i1 > i2
     // = 0 quando i1 = i2
     // < 0 quando i1 < i2
     return *(int *)i1 - *(int *)i2;
 }
+*/
