@@ -44,7 +44,7 @@ AVL_Node avl_insert(AVL_Node root, int value)
 AVL_Node _avl_insert_node(AVL_Node root, int value, AVL_Node *candidate_parent_pointer)
 {
     AVL_Node node = root, node_parent = NULL, candidate = root;
-    int flag = 0;
+    int flag = 0, compare_result;
 
     while (node != NULL && !flag)
     {
@@ -54,10 +54,19 @@ AVL_Node _avl_insert_node(AVL_Node root, int value, AVL_Node *candidate_parent_p
             candidate = node;
         }
 
+        // > 0 quando i1 > i2
+        // = 0 quando i1 = i2
+        // < 0 quando i1 < i2
+
         node_parent = node;
-        if (node->value < value)
+
+        compare_result = comparef(&node->value, &value);
+
+        // if (node->value < value)
+        if (compare_result < 0)
             node = node->right;
-        else if (node->value > value)
+        // else if (node->value > value)
+        else if (compare_result > 0)
             node = node->left;
         else
             flag = 1;
@@ -65,7 +74,8 @@ AVL_Node _avl_insert_node(AVL_Node root, int value, AVL_Node *candidate_parent_p
 
     if (!flag)
     {
-        if (node_parent->value < value)
+        // if (node_parent->value < value)
+        if (comparef(&node_parent->value, &value) < 0)
             node_parent->right = create_avl_node(value);
         else
             node_parent->left = create_avl_node(value);
@@ -77,10 +87,17 @@ AVL_Node _avl_insert_node(AVL_Node root, int value, AVL_Node *candidate_parent_p
 void _recalculate_BF(AVL_Node candidate, int value)
 {
     AVL_Node aux = candidate;
+    int compare_result = comparef(&value, &aux->value);
 
-    while (aux->value != value)
+    // > 0 quando i1 > i2
+    // = 0 quando i1 = i2
+    // < 0 quando i1 < i2
+
+    // while (aux->value != value)
+    while (compare_result != 0)
     {
-        if (value > aux->value)
+        // if (value > aux->value)
+        if (compare_result > 0)
         {
             aux->BF--;
             aux = aux->right;
@@ -90,6 +107,7 @@ void _recalculate_BF(AVL_Node candidate, int value)
             aux->BF++;
             aux = aux->left;
         }
+        compare_result = comparef(&value, &aux->value);
     }
 }
 
@@ -201,5 +219,8 @@ AVL_Node _rotate_right_left(AVL_Node candidate)
 
 int comparef(void *i1, void *i2)
 {
-    return *(int *)i1 < *(int *)i2;
+    // > 0 quando i1 > i2
+    // = 0 quando i1 = i2
+    // < 0 quando i1 < i2
+    return *(int *)i1 - *(int *)i2;
 }
