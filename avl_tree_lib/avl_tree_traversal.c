@@ -1,5 +1,27 @@
 #include "avl_tree.h"
 
+void *avl_search(AVL_Tree T, void *data)
+{
+    if (T == NULL || data == NULL)
+        return NULL;
+
+    AVL_Node node = T->root;
+    int compare_result;
+
+    while (node != NULL)
+    {
+        compare_result = T->comparef(data, node->data);
+        if (compare_result > 0)
+            node = node->right;
+        else if (compare_result < 0)
+            node = node->left;
+        else
+            return node->data;
+    }
+
+    return NULL;
+}
+
 void avl_pre_order(AVL_Tree T, void (*func)(void *))
 {
     AVL_Node node = T->root;

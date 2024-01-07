@@ -35,6 +35,8 @@ void free_avl_tree_func(AVL_Tree T, void (*free_data_func)(void *));
 
 void avl_insert(AVL_Tree T, void *data);
 
+void *avl_search(AVL_Tree T, void *data);
+
 void avl_pre_order(AVL_Tree T, void (*func)(void *));
 
 void avl_in_order(AVL_Tree T, void (*func)(void *));

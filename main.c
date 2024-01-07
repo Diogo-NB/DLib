@@ -19,8 +19,8 @@ void print_int(void *i)
 int main(void)
 {
     AVL_Tree T = create_avl_tree(compare_int);
-
     int *input = (int *)malloc(sizeof(int));
+    printf("Adding values to the tree (insert -1 to stop) --> ");
     scanf("%d", input);
 
     while (*input != -1)
@@ -30,22 +30,31 @@ int main(void)
         scanf("%d", input);
     }
 
-    printf("\n[ ");
+    printf("\n In order print --> [ ");
     avl_in_order(T, print_int);
     printf("]");
 
-    printf("\n[ ");
+    printf("\n Pre order print --> [ ");
     avl_pre_order(T, print_int);
     printf("]");
 
-    printf("\n[ ");
+    printf("\n Post order print --> [ ");
     avl_post_order(T, print_int);
     printf("]");
 
-    printf("\n[ ");
+    printf("\n Level order print --> [ ");
     avl_level_order(T, print_int);
     printf("]");
 
+    scanf("%d", input);
+    printf("\nFinding %d --> ", *input);
+    void *d = avl_search(T, input);
+    if (d != NULL)
+        print_int(d);
+    else
+        printf("Not Found!");
+
     free_avl_tree_func(T, free);
+
     return 0;
 }
