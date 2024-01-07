@@ -46,5 +46,6 @@ int main(void)
     avl_level_order(T, print_int);
     printf("]");
 
+    free_avl_tree_func(T, free);
     return 0;
 }

@@ -29,6 +29,10 @@ int avl_is_empty(AVL_Tree T);
 
 AVL_Node create_avl_node(void *data);
 
+void free_avl_tree(AVL_Tree T);
+
+void free_avl_tree_func(AVL_Tree T, void (*free_data_func)(void *));
+
 void avl_insert(AVL_Tree T, void *data);
 
 void avl_pre_order(AVL_Tree T, void (*func)(void *));

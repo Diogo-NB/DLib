@@ -25,6 +25,51 @@ AVL_Node create_avl_node(void *data)
     return node;
 }
 
+void free_avl_tree(AVL_Tree T)
+{
+    AVL_Node node = T->root, aux;
+    Stack s = create_stack();
+
+    while (node != NULL || !is_stack_empty(s))
+    {
+        while (push(s, node))
+            node = node->left;
+        node = (AVL_Node)pop(s);
+
+        aux = node->right;
+
+        free(node);
+
+        node = aux;
+    }
+
+    free_stack(s);
+    free(T);
+}
+
+void free_avl_tree_func(AVL_Tree T, void (*free_data_func)(void *))
+{
+    AVL_Node node = T->root, aux;
+    Stack s = create_stack();
+
+    while (node != NULL || !is_stack_empty(s))
+    {
+        while (push(s, node))
+            node = node->left;
+        node = (AVL_Node)pop(s);
+
+        aux = node->right;
+
+        free_data_func(node->data);
+        free(node);
+
+        node = aux;
+    }
+
+    free_stack(s);
+    free(T);
+}
+
 void avl_insert(AVL_Tree T, void *data)
 {
     AVL_Node root = T->root;
