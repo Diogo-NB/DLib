@@ -72,45 +72,37 @@ void free_avl_tree_func(AVL_Tree T, void (*free_data_func)(void *))
 
 void avl_insert(AVL_Tree T, void *data)
 {
-    AVL_Node root = T->root;
     if (avl_is_empty(T))
     {
         T->root = create_avl_node(data);
         return;
     }
 
-    AVL_Node candidate = NULL, candidate_parrent = NULL;
-
-    candidate = _avl_insert_node(T, data, &candidate_parrent);
+    AVL_Node candidate = NULL;
+    AVL_Node *candidate_parrent_pointer = NULL;
+    candidate = _avl_insert_node(T, data, &candidate_parrent_pointer);
     _recalculate_BF(candidate, data, T->comparef);
 
     if (candidate->BF == -2 || candidate->BF == 2)
     {
-        if (candidate == root)
-        {
-            root = _rotate(candidate);
-        }
+        if (candidate == T->root)
+            T->root = _rotate(candidate);
         else
-        {
-            if (candidate_parrent->left == candidate)
-                candidate_parrent->left = _rotate(candidate);
-            else
-                candidate_parrent->right = _rotate(candidate);
-        }
+            *candidate_parrent_pointer = _rotate(candidate);
     }
-    T->root = root;
 }
 
-AVL_Node _avl_insert_node(AVL_Tree T, void *data, AVL_Node *candidate_parent_pointer)
+AVL_Node _avl_insert_node(AVL_Tree T, void *data, AVL_Node **candidate_parent_pointer_pointer)
 {
-    AVL_Node node = T->root, node_parent = NULL, candidate = T->root;
+    AVL_Node node = T->root, candidate = T->root;
+    AVL_Node *node_parent_pointer = NULL;
     int flag = 0, compare_result;
 
     while (node != NULL && !flag)
     {
         if (node->BF != 0)
         {
-            *candidate_parent_pointer = node_parent;
+            *candidate_parent_pointer_pointer = node_parent_pointer;
             candidate = node;
         }
 
@@ -118,28 +110,28 @@ AVL_Node _avl_insert_node(AVL_Tree T, void *data, AVL_Node *candidate_parent_poi
         // = 0 quando i1 = i2
         // < 0 quando i1 < i2
 
-        node_parent = node;
-
         compare_result = T->comparef(node->data, data);
 
         // if (node->value < value)
         if (compare_result < 0)
+        {
+            node_parent_pointer = &node->right;
             node = node->right;
+        }
         // else if (node->value > value)
         else if (compare_result > 0)
+        {
+            node_parent_pointer = &node->left;
             node = node->left;
+        }
         else
+        {
             flag = 1;
+        }
     }
 
     if (!flag)
-    {
-        // if (node_parent->value < value)
-        if (T->comparef(node_parent->data, data) < 0)
-            node_parent->right = create_avl_node(data);
-        else
-            node_parent->left = create_avl_node(data);
-    }
+        *node_parent_pointer = create_avl_node(data);
 
     return candidate;
 }
