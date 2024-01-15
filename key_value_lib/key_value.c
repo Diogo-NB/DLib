@@ -43,7 +43,7 @@ void print_keys(KV *arr, int n)
     printf("]");
 }
 
-void print_kv(KV *arr, int n, void (*print_value)(void *))
+void print_kv_array(KV *arr, int n, void (*print_value)(void *))
 {
     printf("\n[ ");
     for (int i = 0; i < n; i++)
