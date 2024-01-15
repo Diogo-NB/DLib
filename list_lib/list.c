@@ -2,6 +2,16 @@
 
 #include "list.h"
 
+// Creates a new node
+static Node _create_node(void *new_node_data)
+{
+    Node new_node = (Node)malloc(sizeof(struct node));
+    new_node->data = new_node_data;
+    new_node->next = NULL;
+    new_node->prev = NULL;
+    return new_node;
+}
+
 // Allocates memory for a new List
 List create_list()
 {
@@ -265,16 +275,6 @@ List clone_list_custom_reversed(List L, void *(*copy_data)(void *))
         aux = aux->prev;
     }
     return new_list;
-}
-
-// Creates a new node
-Node _create_node(void *new_node_data)
-{
-    Node new_node = (Node)malloc(sizeof(struct node));
-    new_node->data = new_node_data;
-    new_node->next = NULL;
-    new_node->prev = NULL;
-    return new_node;
 }
 
 // Removes a node from a list

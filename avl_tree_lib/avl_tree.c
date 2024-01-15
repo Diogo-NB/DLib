@@ -2,6 +2,179 @@
 
 #include "avl_tree.h"
 
+static AVL_Node _rotate_right(AVL_Node candidate)
+{
+    AVL_Node child = candidate->left;
+    AVL_Node child_child = child->right;
+
+    child->right = candidate;
+    candidate->left = child_child;
+
+    candidate->BF = child->BF = 0;
+
+    return child;
+}
+
+static AVL_Node _rotate_left(AVL_Node candidate)
+{
+    AVL_Node child = candidate->right;
+    AVL_Node child_child = child->left;
+
+    child->left = candidate;
+    candidate->right = child_child;
+
+    candidate->BF = child->BF = 0;
+
+    return child;
+}
+
+static AVL_Node _rotate_left_right(AVL_Node candidate)
+{
+    AVL_Node new_root = NULL;
+    AVL_Node child = candidate->left;
+    AVL_Node child_child = child->right;
+    int child_child_BF = 0;
+
+    if (child_child != NULL)
+        child_child_BF = child_child->BF;
+
+    candidate->left = _rotate_left(child);
+    new_root = _rotate_right(candidate);
+
+    if (child_child_BF == 1)
+    {
+        candidate->BF = -1;
+        child->BF = 0;
+        child_child->BF = 0;
+    }
+    else if (child_child_BF == -1)
+    {
+        candidate->BF = 0;
+        child->BF = +1;
+        child_child->BF = 0;
+    }
+
+    return new_root;
+}
+
+static AVL_Node _rotate_right_left(AVL_Node candidate)
+{
+    AVL_Node new_root = NULL;
+    AVL_Node child = candidate->right;
+    AVL_Node child_child = child->left;
+    int child_child_BF = 0;
+
+    if (child_child != NULL)
+        child_child_BF = child_child->BF;
+
+    candidate->left = _rotate_right(child);
+    new_root = _rotate_left(candidate);
+
+    if (child_child_BF == 1)
+    {
+        candidate->BF = 0;
+        child->BF = -1;
+        child_child->BF = 0;
+    }
+    else if (child_child_BF == -1)
+    {
+        candidate->BF = +1;
+        child->BF = 0;
+        child_child->BF = 0;
+    }
+
+    return new_root;
+}
+
+static AVL_Node _avl_insert_node(AVL_Tree T, void *data, AVL_Node **candidate_parent_pointer_pointer)
+{
+    AVL_Node node = T->root, candidate = T->root;
+    AVL_Node *node_parent_pointer = NULL;
+    int flag = 0, compare_result;
+
+    while (node != NULL && !flag)
+    {
+        if (node->BF != 0)
+        {
+            *candidate_parent_pointer_pointer = node_parent_pointer;
+            candidate = node;
+        }
+
+        // > 0 quando i1 > i2
+        // = 0 quando i1 = i2
+        // < 0 quando i1 < i2
+
+        compare_result = T->comparef(node->data, data);
+
+        // if (node->value < value)
+        if (compare_result < 0)
+        {
+            node_parent_pointer = &node->right;
+            node = node->right;
+        }
+        // else if (node->value > value)
+        else if (compare_result > 0)
+        {
+            node_parent_pointer = &node->left;
+            node = node->left;
+        }
+        else
+        {
+            flag = 1;
+        }
+    }
+
+    if (!flag)
+        *node_parent_pointer = create_avl_node(data);
+
+    return candidate;
+}
+
+static void _recalculate_BF(AVL_Node candidate, void *data, int (*comparef)(void *, void *))
+{
+    AVL_Node aux = candidate;
+    int compare_result = comparef(data, aux->data);
+
+    // while (aux->value != value)
+    while (compare_result != 0)
+    {
+        // if (value > aux->value)
+        if (compare_result > 0)
+        {
+            aux->BF--;
+            aux = aux->right;
+        }
+        else
+        {
+            aux->BF++;
+            aux = aux->left;
+        }
+        compare_result = comparef(data, aux->data);
+    }
+}
+
+static AVL_Node _rotate(AVL_Node candidate)
+{
+    AVL_Node new_root = NULL;
+
+    if (candidate->BF == 2)
+    {
+        if (candidate->left->BF == 1)
+            new_root = _rotate_right(candidate);
+        else
+            new_root = _rotate_left_right(candidate);
+    }
+    else
+    {
+        if (candidate->right->BF == -1)
+            new_root = _rotate_left(candidate);
+        else
+            new_root = _rotate_right_left(candidate);
+    }
+
+    return new_root;
+}
+
 AVL_Tree create_avl_tree(int (*comparef)(void *, void *))
 {
     AVL_Tree T = (AVL_Tree)malloc(sizeof(struct avl_tree));
@@ -93,186 +266,3 @@ void avl_insert(AVL_Tree T, void *data)
             *candidate_parrent_pointer = _rotate(candidate);
     }
 }
-
-AVL_Node _avl_insert_node(AVL_Tree T, void *data, AVL_Node **candidate_parent_pointer_pointer)
-{
-    AVL_Node node = T->root, candidate = T->root;
-    AVL_Node *node_parent_pointer = NULL;
-    int flag = 0, compare_result;
-
-    while (node != NULL && !flag)
-    {
-        if (node->BF != 0)
-        {
-            *candidate_parent_pointer_pointer = node_parent_pointer;
-            candidate = node;
-        }
-
-        // > 0 quando i1 > i2
-        // = 0 quando i1 = i2
-        // < 0 quando i1 < i2
-
-        compare_result = T->comparef(node->data, data);
-
-        // if (node->value < value)
-        if (compare_result < 0)
-        {
-            node_parent_pointer = &node->right;
-            node = node->right;
-        }
-        // else if (node->value > value)
-        else if (compare_result > 0)
-        {
-            node_parent_pointer = &node->left;
-            node = node->left;
-        }
-        else
-        {
-            flag = 1;
-        }
-    }
-
-    if (!flag)
-        *node_parent_pointer = create_avl_node(data);
-
-    return candidate;
-}
-
-void _recalculate_BF(AVL_Node candidate, void *data, int (*comparef)(void *, void *))
-{
-    AVL_Node aux = candidate;
-    int compare_result = comparef(data, aux->data);
-
-    // while (aux->value != value)
-    while (compare_result != 0)
-    {
-        // if (value > aux->value)
-        if (compare_result > 0)
-        {
-            aux->BF--;
-            aux = aux->right;
-        }
-        else
-        {
-            aux->BF++;
-            aux = aux->left;
-        }
-        compare_result = comparef(data, aux->data);
-    }
-}
-
-AVL_Node _rotate(AVL_Node candidate)
-{
-    AVL_Node new_root = NULL;
-
-    if (candidate->BF == 2)
-    {
-        if (candidate->left->BF == 1)
-            new_root = _rotate_right(candidate);
-        else
-            new_root = _rotate_left_right(candidate);
-    }
-    else
-    {
-        if (candidate->right->BF == -1)
-            new_root = _rotate_left(candidate);
-        else
-            new_root = _rotate_right_left(candidate);
-    }
-
-    return new_root;
-}
-
-AVL_Node _rotate_right(AVL_Node candidate)
-{
-    AVL_Node child = candidate->left;
-    AVL_Node child_child = child->right;
-
-    child->right = candidate;
-    candidate->left = child_child;
-
-    candidate->BF = child->BF = 0;
-
-    return child;
-}
-
-AVL_Node _rotate_left(AVL_Node candidate)
-{
-    AVL_Node child = candidate->right;
-    AVL_Node child_child = child->left;
-
-    child->left = candidate;
-    candidate->right = child_child;
-
-    candidate->BF = child->BF = 0;
-
-    return child;
-}
-
-AVL_Node _rotate_left_right(AVL_Node candidate)
-{
-    AVL_Node new_root = NULL;
-    AVL_Node child = candidate->left;
-    AVL_Node child_child = child->right;
-    int child_child_BF = 0;
-
-    if (child_child != NULL)
-        child_child_BF = child_child->BF;
-
-    candidate->left = _rotate_left(child);
-    new_root = _rotate_right(candidate);
-
-    if (child_child_BF == 1)
-    {
-        candidate->BF = -1;
-        child->BF = 0;
-        child_child->BF = 0;
-    }
-    else if (child_child_BF == -1)
-    {
-        candidate->BF = 0;
-        child->BF = +1;
-        child_child->BF = 0;
-    }
-
-    return new_root;
-}
-
-AVL_Node _rotate_right_left(AVL_Node candidate)
-{
-    AVL_Node new_root = NULL;
-    AVL_Node child = candidate->right;
-    AVL_Node child_child = child->left;
-    int child_child_BF = 0;
-
-    if (child_child != NULL)
-        child_child_BF = child_child->BF;
-
-    candidate->left = _rotate_right(child);
-    new_root = _rotate_left(candidate);
-
-    if (child_child_BF == 1)
-    {
-        candidate->BF = 0;
-        child->BF = -1;
-        child_child->BF = 0;
-    }
-    else if (child_child_BF == -1)
-    {
-        candidate->BF = +1;
-        child->BF = 0;
-        child_child->BF = 0;
-    }
-
-    return new_root;
-}
-
-/*
-int T->comparef(void *i1, void *i2)
-{
-    // > 0 quando i1 > i2
-    // = 0 quando i1 = i2
-    // < 0 quando i1 < i2
-    return *(int *)i1 - *(int *)i2;
-}
-*/

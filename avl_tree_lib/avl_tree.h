@@ -51,18 +51,4 @@ void avl_post_order(AVL_Tree T, void (*func)(void *));
 
 void avl_level_order(AVL_Tree T, void (*func)(void *));
 
-AVL_Node _avl_insert_node(AVL_Tree T, void *data, AVL_Node **candidate_parent_pointer_pointer);
-
-void _recalculate_BF(AVL_Node candidate, void *data, int (*comparef)(void *, void *));
-
-AVL_Node _rotate(AVL_Node candidate);
-
-AVL_Node _rotate_right(AVL_Node candidate);
-
-AVL_Node _rotate_left(AVL_Node candidate);
-
-AVL_Node _rotate_left_right(AVL_Node candidate);
-
-AVL_Node _rotate_right_left(AVL_Node candidate);
-
 #endif

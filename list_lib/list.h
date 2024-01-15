@@ -35,9 +35,6 @@ Node prepend_from_node(List L, Node N, void *data);
 // Inserts a new element at the start of the list and returns it's node
 Node prepend(List L, void *data);
 
-// Creates a new node
-Node _create_node(void *new_node_data);
-
 // Removes a node from a list
 void remove_node(List L, Node N);
 
