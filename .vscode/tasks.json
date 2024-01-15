@@ -3,7 +3,7 @@
         {
             "type": "cppbuild",
             "label": "Generic custom task",
-            "command": "D:\\Programs Files\\mysys2_DIR\\mingw64\\bin\\gcc.exe", // Compiler path
+            "command": "gcc",
             "args": [
                 "-fdiagnostics-color=always",
                 "-I${workspaceFolder}\\list_lib", // Including all headers files (.h) inside list_lib folder
@@ -11,7 +11,7 @@
                 "-I${workspaceFolder}\\avl_tree_lib",
                 "-I${workspaceFolder}\\key_value_lib",
                 "-g",
-                "${workspaceFolder}\\*.c",
+                "${file}",
                 "${workspaceFolder}\\list_lib\\*.c", // Compiling all .c files inside list_lib folder
                 "${workspaceFolder}\\graph_lib\\*.c",
                 "${workspaceFolder}\\avl_tree_lib\\*.c",
@@ -30,3 +30,5 @@
     ],
     "version": "2.0.0"
 }
+
+//https://code.visualstudio.com/docs/editor/variables-reference
