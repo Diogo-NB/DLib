@@ -1,8 +1,6 @@
 #ifndef LIST_H_INCLUDED
 #define LIST_H_INCLUDED
 
-#include <stdlib.h>
-
 // A list's node
 struct node
 {

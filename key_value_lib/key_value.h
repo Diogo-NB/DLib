@@ -1,9 +1,6 @@
 #ifndef KEY_VALUE_H_INCLUDED
 #define KEY_VALUE_H_INCLUDED
 
-#include <stdlib.h>
-#include <stdio.h>
-
 struct key_value
 {
     int key;

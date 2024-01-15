@@ -1,8 +1,6 @@
 #ifndef STACK_H_INCLUDED
 #define STACK_H_INCLUDED
 
-#include <stdlib.h>
-
 // A stack's node
 struct sNode
 {

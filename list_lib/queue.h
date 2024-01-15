@@ -1,8 +1,6 @@
 #ifndef QUEUE_H_INCLUDED
 #define QUEUE_H_INCLUDED
 
-#include <stdlib.h>
-
 // A stack's node
 struct qNode
 {

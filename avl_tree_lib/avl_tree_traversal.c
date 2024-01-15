@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "avl_tree.h"
 
 void *avl_search(AVL_Tree T, void *data)

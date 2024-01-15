@@ -1,7 +1,8 @@
-#include "list_lib.h"
-
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+#include "list_lib.h"
 
 struct user
 {

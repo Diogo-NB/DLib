@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "list.h"
 
 // Allocates memory for a new List

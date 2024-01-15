@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <stdio.h>
+
 #include "graph.h"
 
 void create_edge_values(Graph g, int fromValue, int toValue, float weight)

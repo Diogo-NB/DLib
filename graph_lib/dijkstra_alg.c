@@ -1,3 +1,7 @@
+#include <stdlib.h>
+#include <float.h>
+#include <stdio.h>
+
 #include "graph_traversal.h"
 
 void _run_dijkstra(Graph g, Vertex start)

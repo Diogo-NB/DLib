@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "avl_tree.h"
 #include "stack.h"
 #include "queue.h"

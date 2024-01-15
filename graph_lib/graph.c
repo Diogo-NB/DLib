@@ -1,3 +1,7 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <float.h>
+
 #include "graph.h"
 
 Graph create_graph(int is_directional)

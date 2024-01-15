@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "avl_tree.h"
 
 AVL_Tree create_avl_tree(int (*comparef)(void *, void *))

@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <stdio.h>
+
 #include "key_value.h"
 
 KV create_kv(int key, void *value)

@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <stdio.h>
+
 #include "graph.h"
 
 Vertex create_vertex(Graph g, int value)

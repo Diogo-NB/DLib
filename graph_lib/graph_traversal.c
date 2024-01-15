@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "graph_traversal.h"
 
 List depth_first(Graph g, Vertex start)

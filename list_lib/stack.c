@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "stack.h"
 
 Stack create_stack()

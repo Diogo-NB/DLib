@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "queue.h"
 
 // Allocates memory for a new queue

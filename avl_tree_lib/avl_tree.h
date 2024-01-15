@@ -1,7 +1,6 @@
 #ifndef AVL_TREE_H_INCLUDED
 #define AVL_TREE_H_INCLUDED
 
-#include <stdlib.h>
 #include "stack.h"
 #include "queue.h"
 

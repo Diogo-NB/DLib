@@ -2,8 +2,6 @@
 #define GRAPH_H_INCLUDED
 
 #include "list_lib.h"
-#include <stdio.h>
-#include <float.h>
 
 struct graph
 {

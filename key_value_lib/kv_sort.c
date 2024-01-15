@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "kv_sort.h"
 
 void kv_radix_sort(KV *arr, int n, int max)
