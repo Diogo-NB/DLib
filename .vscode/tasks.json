@@ -6,16 +6,16 @@
             "command": "gcc",
             "args": [
                 "-fdiagnostics-color=always",
-                "-I${workspaceFolder}\\list_lib", // Including all headers files (.h) inside list_lib folder
-                "-I${workspaceFolder}\\graph_lib",
-                "-I${workspaceFolder}\\avl_tree_lib",
-                "-I${workspaceFolder}\\key_value_lib",
+                "-I${workspaceFolder}\\src\\list_lib", // Including all headers files (.h) inside list_lib folder
+                "-I${workspaceFolder}\\src\\graph_lib",
+                "-I${workspaceFolder}\\src\\avl_tree_lib",
+                "-I${workspaceFolder}\\src\\key_value_lib",
                 "-g",
                 "${file}",
-                "${workspaceFolder}\\list_lib\\*.c", // Compiling all .c files inside list_lib folder
-                "${workspaceFolder}\\graph_lib\\*.c",
-                "${workspaceFolder}\\avl_tree_lib\\*.c",
-                "${workspaceFolder}\\key_value_lib\\*.c",
+                "${workspaceFolder}\\src\\list_lib\\*.c", // Compiling all .c files inside list_lib folder
+                "${workspaceFolder}\\src\\graph_lib\\*.c",
+                "${workspaceFolder}\\src\\avl_tree_lib\\*.c",
+                "${workspaceFolder}\\src\\key_value_lib\\*.c",
                 "-o",
                 "${workspaceFolder}\\${fileBasenameNoExtension}.exe" // Executable path
             ],

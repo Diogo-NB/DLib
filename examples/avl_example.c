@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "avl_tree.h"
-#include "stack.h"
-#include "queue.h"
+#include "avl_tree_lib.h"
 
 int compare_int(void *i1, void *i2)
 {
