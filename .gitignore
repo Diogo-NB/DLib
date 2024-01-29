@@ -1,1 +1,19 @@
 *.exe
+# Ignore IDE related folders
+/vscode
+/idea
+
+# Ignore CMake related folders
+/build/
+/bin/
+
+*.o
+*.a
+
+*.swp
+
+*.log
+
+*.tmp
+
+.DS_Store
